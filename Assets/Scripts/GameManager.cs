@@ -32,12 +32,6 @@ public class GameManager : MonoBehaviour {
         generator = GetComponent<LevelGenerator>();
     }
 
-    // Use this for initialization
-    void Start()
-    {
-        InitGame();
-    }
-
     //This is called each time a scene is loaded.
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {

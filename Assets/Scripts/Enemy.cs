@@ -55,7 +55,47 @@ public class Enemy : Movable {
             xDir = 0;
         }
 
+        AnimCheck(xDir, yDir);
+
         AttemptMove<Player>(xDir, yDir);
+    }
+
+    //Check the animations for movement, setting the correct one based on inputs
+    void AnimCheck(int xDir, int yDir)
+    {
+        if (xDir == 1)
+        {
+            animator.SetBool("playerRight", true);
+        }
+        else
+        {
+            animator.SetBool("playerRight", false);
+            if (xDir == -1)
+            {
+                animator.SetBool("playerLeft", true);
+            }
+            else
+            {
+                animator.SetBool("playerLeft", false);
+            }
+        }
+
+        if (yDir == 1)
+        {
+            animator.SetBool("playerUp", true);
+        }
+        else
+        {
+            animator.SetBool("playerUp", false);
+            if (yDir == -1)
+            {
+                animator.SetBool("playerDown", true);
+            }
+            else
+            {
+                animator.SetBool("playerDown", false);
+            }
+        }
     }
 
     protected override void OnCantMove<T>(T component)

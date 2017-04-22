@@ -30,6 +30,9 @@ public class Player : Movable {
 
     // Update is called once per frame
     void Update () {
+        //Temporary score increase
+        iScore++;
+
         int horizontal = 0;
         int vertical = 0;
 
@@ -42,9 +45,49 @@ public class Player : Movable {
             vertical = 0;
         }*/
 
+        AnimCheck(horizontal, vertical);
+
         if (horizontal != 0 || vertical != 0)
         {
             AttemptMove<Enemy>(horizontal, vertical);
+        }
+    }
+
+    //Check the animations for movement, setting the correct one based on inputs
+    void AnimCheck(int xDir, int yDir)
+    {
+        if (xDir == 1)
+        {
+            animator.SetBool("playerRight", true);
+        }
+        else
+        {
+            animator.SetBool("playerRight", false);
+            if (xDir == -1)
+            {
+                animator.SetBool("playerLeft", true);
+            }
+            else
+            {
+                animator.SetBool("playerLeft", false);
+            }
+        }
+
+        if (yDir == 1)
+        {
+            animator.SetBool("playerUp", true);
+        }
+        else
+        {
+            animator.SetBool("playerUp", false);
+            if (yDir == -1)
+            {
+                animator.SetBool("playerDown", true);
+            }
+            else
+            {
+                animator.SetBool("playerDown", false);
+            }
         }
     }
 
@@ -127,6 +170,7 @@ public class Player : Movable {
             //SoundManager.instance.PlaySingle(gameoverSound);
             //SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
+            DestroyObject(this);
         }
     }
 }
