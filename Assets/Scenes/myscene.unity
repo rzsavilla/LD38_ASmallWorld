@@ -292,7 +292,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4215121779252888, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4215121779252888, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -332,6 +332,26 @@ Prefab:
       propertyPath: tScore
       value: 
       objectReference: {fileID: 1067720336}
+    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}
   m_IsPrefabParent: 0
@@ -707,11 +727,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4750049741472302, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.95
       objectReference: {fileID: 0}
     - target: {fileID: 4750049741472302, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.58
       objectReference: {fileID: 0}
     - target: {fileID: 4750049741472302, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
       propertyPath: m_LocalPosition.z

@@ -32,13 +32,14 @@ public abstract class Movable : MonoBehaviour {
 
         if (hit.transform == null)
         {
-            SmoothMovement(new Vector3(xDir, yDir, 0f) / Time.deltaTime);
+            SmoothMovement(end);
         }
         else
         {
-            transform.position = prevPos;
+            //Rozen trying to fix wall collisions, causes the push
+            //back from enemy to fail
+            //transform.position = prevPos;
         }
-        if (hit.distance <= 0);
 
         prevPos = transform.position;
 
