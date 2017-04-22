@@ -183,7 +183,7 @@ MonoBehaviour:
   - {fileID: 1492800951930014, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
   levelGrid: 
   fRockPercent: 50
-  iCAIterations: 1
+  iCAIterations: 5
   iRockDefinition: 3
   iMooreNeighbouhood: 1
 --- !u!1 &802887329

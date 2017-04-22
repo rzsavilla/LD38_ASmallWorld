@@ -68,12 +68,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iLevelWidth: 10
   iLevelHeight: 10
+  iPickupCount: 1
+  iEnemyCount: 1
   floorTiles:
   - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
   wallTiles:
   - {fileID: 1701792564690558, guid: 5b947d33931b7b34b87693ed0308e96e, type: 2}
-  collectables: []
-  enemies: []
+  pickups:
+  - {fileID: 1482657788659008, guid: 676bec81429d6b345b173209d8c4cff8, type: 2}
+  - {fileID: 1294448565107300, guid: 88b4b8c24db840148ae8569b971329e1, type: 2}
+  - {fileID: 1357311501237714, guid: c8abbd3497750d842b46132dca21482c, type: 2}
+  enemies:
+  - {fileID: 1492800951930014, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
   levelGrid: 
   fRockPercent: 50
   iCAIterations: 1

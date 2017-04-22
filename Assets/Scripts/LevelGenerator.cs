@@ -166,12 +166,15 @@ public class LevelGenerator : MonoBehaviour
     void placeObject(GameObject[] objectArray,Vector3 position)
     {
         //Place Random game object from within array -- provides variation --
-        if (objectArray.Length > 0)
-        {
-            int iRandIndex = Random.Range(0, objectArray.Length);
+        //if (objectArray.Length > 0)
+        //{
+            int iRandIndex = Random.Range(0, objectArray.Length - 1);
             GameObject objectChoice = objectArray[iRandIndex];
-            Instantiate(objectChoice, position, Quaternion.identity);
-        }
+            if (objectChoice != null)
+            {
+                Instantiate(objectChoice, position, Quaternion.identity);
+            }
+        //}
     }
 
     void buildLevel()
@@ -212,7 +215,7 @@ public class LevelGenerator : MonoBehaviour
             traversablePositions.RemoveRange(i, 1);  //Remove position - so no other object can be placed there 
             return traversablePositions[i];
         }
-        else return new Vector3(0f, 0f, 0f);
+        else return new Vector3(-1f, -1f, 0f);
     }
 
     //! Return player start position

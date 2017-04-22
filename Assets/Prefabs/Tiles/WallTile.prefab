@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4935181640068610}
-  - component: {fileID: 114187910829900296}
   - component: {fileID: 61373123172778016}
   - component: {fileID: 212518152692500992}
   m_Layer: 0
@@ -63,21 +62,10 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114187910829900296
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1701792564690558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d0ebfea5ed8af46b66b2509533264b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212518152692500992
 SpriteRenderer:
   m_ObjectHideFlags: 1
