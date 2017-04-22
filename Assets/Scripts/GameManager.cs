@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         //Place Player character onto traversable space
         Player player;
         player = GameObject.Find("Player").GetComponent<Player>();
-        player.transform.position = levelGenerator.getRandomTraversable();
+        player.transform.position = levelGenerator.getPlayerStartPos();
     }
 
     private void HideLevelImage()

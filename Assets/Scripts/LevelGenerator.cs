@@ -34,6 +34,8 @@ public class LevelGenerator : MonoBehaviour
 
     public List<int> levelGrid = new List<int>();
 
+    private Vector3 playerStartPos = new Vector3(0f,0f,0f);
+
     //CA Variables
     public float fRockPercent = 50;
     public int iCAIterations = 3;
@@ -213,19 +215,28 @@ public class LevelGenerator : MonoBehaviour
         else return new Vector3(0f, 0f, 0f);
     }
 
+    //! Return player start position
+    public Vector3 getPlayerStartPos()
+    {
+        return playerStartPos;
+    }
+
     //! Place Game objects - enemies/pickups
     public void placeObjects()
     {
-        //Place num Pickups
-        for (int i = 0; i < iPickupCount; i++)
-        {
-            placeObject(pickups, getRandomTraversable());
-        }
+        //Set Player start position
+        playerStartPos = getRandomTraversable();
 
         //Place num Enemies
         for (int i = 0; i < iEnemyCount; i++)
         {
             placeObject(enemies, getRandomTraversable());
+        }
+
+        //Place num Pickups
+        for (int i = 0; i < iPickupCount; i++)
+        {
+            placeObject(pickups, getRandomTraversable());
         }
     }
 
