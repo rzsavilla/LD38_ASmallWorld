@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : Movable {
+
+    public float restartLevelDelay = 1f;
+
+    public Text tHP;
+    public Text tScore;
 
     private Animator animator;
     private int iHP;
@@ -11,13 +17,20 @@ public class Player : Movable {
     private Vector3 vLastPosition;
     private Vector2 vDirection;
 
-	// Use this for initialization
-	protected override void Start ()
+    //Score values for pickups
+    private int iPickup1 = 5;
+    private int iPickup2 = 10;
+    private int iPickup3 = 20;
+
+    // Use this for initialization
+    protected override void Start ()
     {
         animator = GetComponent<Animator>();
         iHP = GameManager.instance.iPlayerHP;
         iScore = GameManager.instance.iScore;
-        //Set da text
+
+        tHP.text = "HP: " + iHP;
+        tScore.text = "Score: " + iScore;
 
         base.Start();
 	}
@@ -30,8 +43,6 @@ public class Player : Movable {
 
     // Update is called once per frame
     void Update () {
-        //Temporary score increase
-        iScore++;
 
         int horizontal = 0;
         int vertical = 0;
@@ -108,25 +119,32 @@ public class Player : Movable {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        /*if (other.tag == "Exit")
+        if (other.tag == "Pickup1")
+        {
+            iScore += iPickup1;
+            tScore.text = "Score: " + iScore;
+            //SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Pickup2")
+        {
+            iScore += iPickup2;
+            tScore.text = "Score: " + iScore;
+            //SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Pickup3")
+        {
+            iScore += iPickup3;
+            tScore.text = "Score: " + iScore;
+            //SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Exit")
         {
             Invoke("Restart", restartLevelDelay);
             enabled = false;
         }
-        else if (other.tag == "Food")
-        {
-            food += pointsPerFood;
-            foodText.text = "+" + pointsPerFood + " Food: " + food;
-            SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
-            other.gameObject.SetActive(false);
-        }
-        else if (other.tag == "Soda")
-        {
-            food += pointsPerSoda;
-            foodText.text = "+" + pointsPerSoda + " Food: " + food;
-            SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
-            other.gameObject.SetActive(false);
-        }*/
     }
 
     protected override void OnCantMove<T>(T component)
@@ -159,7 +177,7 @@ public class Player : Movable {
     {
         //animator.SetTrigger("playerHit");
         iHP -= loss;
-        //foodText.text = "-" + loss + " Food: " + food;
+        tHP.text = tHP.text = "HP: " + iHP;
         CheckIfGameOver();
     }
 
