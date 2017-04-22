@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4180864419222410}
   - component: {fileID: 114329227860317570}
+  - component: {fileID: 114939052714971216}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,6 +52,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828e37585fdf46e49aceaefb16d931e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 114162792040760088, guid: 35310bfc47d05284fb95044df3dd6c79,
-    type: 2}
+  levelGenerator: {fileID: 0}
   iPlayerHP: 10
+  iScore: 0
+--- !u!114 &114939052714971216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1039543885840986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841c0b45baccb364fbd56b242a98cebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iLevelWidth: 10
+  iLevelHeight: 10
+  floorTiles:
+  - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
+  wallTiles:
+  - {fileID: 1701792564690558, guid: 5b947d33931b7b34b87693ed0308e96e, type: 2}
+  collectables: []
+  enemies: []
+  levelGrid: 
+  fRockPercent: 50
+  iCAIterations: 1
+  iRockDefinition: 3
+  iMooreNeighbouhood: 1
