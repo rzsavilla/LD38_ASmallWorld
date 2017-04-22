@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Enemy : Movable {
 
-    public int iDamage;
+    public int iDamage = 1;
+    public int iSkipHit = 20;
     public int iSkipAmount = 5;
-    public int iSkipMove;
+    public int iSkipMove = 5;
+    public float fFollowTollerance = 0.25f;
+
     private Animator animator;
     private Transform target;
     private Vector2 vDirection;
@@ -24,8 +27,8 @@ public class Enemy : Movable {
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
         vDirection = new Vector2(xDir, yDir);
-        base.AttemptMove<Player>(xDir, yDir);
         ResetSkipMove();
+        base.AttemptMove<Player>(xDir, yDir);
     }
 
     public void ResetSkipMove()
@@ -40,11 +43,17 @@ public class Enemy : Movable {
 
     public void MoveEnemy()
     {
-        int xDir = 0;
-        int yDir = 0;
+        int xDir = target.position.x > transform.position.x ? 1 : -1;
+        int yDir = target.position.y > transform.position.y ? 1 : -1;
 
-        yDir = target.position.y > transform.position.y ? 1 : -1;
-        xDir = target.position.x > transform.position.x ? 1 : -1;
+        if (!(target.position.y - fFollowTollerance > transform.position.y || target.position.y + fFollowTollerance < transform.position.y))
+        {
+            yDir = 0;
+        }
+        else if (!(target.position.x - fFollowTollerance > transform.position.x || target.position.x + fFollowTollerance < transform.position.x))
+        {
+            xDir = 0;
+        }
 
         AttemptMove<Player>(xDir, yDir);
     }
@@ -53,7 +62,9 @@ public class Enemy : Movable {
     {        
         Player hitPlayer = component as Player;
 
-        hitPlayer.transform.position += new Vector3(vDirection.x, vDirection.y) * Time.deltaTime * pushBack;
+        hitPlayer.PushBack(vDirection);
+
+        iSkipMove = iSkipHit;
 
         //animator.SetTrigger("enemyAttack");
 

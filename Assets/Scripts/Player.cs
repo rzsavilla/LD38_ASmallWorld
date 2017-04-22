@@ -88,11 +88,23 @@ public class Player : Movable {
 
     protected override void OnCantMove<T>(T component)
     {
-        transform.position = vLastPosition - (new Vector3(vDirection.x, vDirection.y) * Time.deltaTime * pushBack);
-        
+        //PushBack();
+
         /*Wall hitWall = component as Wall;
         hitWall.DamageWall(wallDamage);
         animator.SetTrigger("playerChop");*/
+    }
+
+    //Function for being pushed back when walking into an enemy
+    public void PushBack()
+    {
+        transform.position = vLastPosition - (new Vector3(vDirection.x, vDirection.y) * Time.deltaTime * pushBack);
+    }
+
+    //Function for being pushed back from the enemy code
+    public void PushBack(Vector2 direction)
+    {
+        transform.position += (new Vector3(direction.x, direction.y) * Time.deltaTime * pushBack);
     }
 
     private void Restart()

@@ -123,8 +123,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   iDamage: 1
+  iSkipHit: 20
   iSkipAmount: 5
   iSkipMove: 5
+  fFollowTollerance: 0.25
 --- !u!212 &212280991434801176
 SpriteRenderer:
   m_ObjectHideFlags: 1

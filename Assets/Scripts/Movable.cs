@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Movable : MonoBehaviour {
 
     public float pushBack = 10f;
-    public float moveTime = 0.1f;
+    public float moveTime = 0.5f;
     public LayerMask blockingLayer;
 
     private BoxCollider2D boxCollider;
