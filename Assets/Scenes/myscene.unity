@@ -147,7 +147,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114939052714971216, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &245344665 stripped
@@ -173,7 +174,7 @@ MonoBehaviour:
   floorTiles:
   - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
   wallTiles:
-  - {fileID: 1837627263825708, guid: 73b599b904a5c8c4cbb770dfee701a30, type: 2}
+  - {fileID: 1701792564690558, guid: 5b947d33931b7b34b87693ed0308e96e, type: 2}
   pickups:
   - {fileID: 1482657788659008, guid: 676bec81429d6b345b173209d8c4cff8, type: 2}
   - {fileID: 1294448565107300, guid: 88b4b8c24db840148ae8569b971329e1, type: 2}
