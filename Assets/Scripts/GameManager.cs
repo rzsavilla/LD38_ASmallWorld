@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public static GameManager instance = null;
-    public LevelGenerator generator;
+
+    public LevelGenerator levelGenerator;
+
     public int iPlayerHP = 10;
     public int iScore = 0;
 
@@ -29,7 +32,8 @@ public class GameManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
         enemies = new List<Enemy>();
-        generator = GetComponent<LevelGenerator>();
+
+        levelGenerator = GetComponent<LevelGenerator>();
     }
 
     //This is called each time a scene is loaded.
@@ -66,9 +70,8 @@ public class GameManager : MonoBehaviour {
         //levelText.text = "Day " + level;
         //levelImage.SetActive(true);
         //Invoke("HideLevelImage", levelStartDelay);
-
         enemies.Clear();
-        generator.CreateLevel();
+        levelGenerator.SetupLevel();
     }
 
     private void HideLevelImage()

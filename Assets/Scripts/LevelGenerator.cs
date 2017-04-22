@@ -3,7 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class LevelGenerator : MonoBehaviour {
+public class LevelGenerator : MonoBehaviour
+{
+    [System.Serializable]
+    public class Count
+    {
+        public int min;
+        public int max;
+        public Count(int mn,int mx)
+        {
+            min = mn;
+            max = mx;
+        }
+    }
 
     public int iLevelWidth = 10;
     public int iLevelHeight = 10;
@@ -36,12 +48,12 @@ public class LevelGenerator : MonoBehaviour {
         } 
     }
 
-    private int getIndex(int x, int y, int width)
+    int getIndex(int x, int y, int width)
     {
         return x + (y * width);
     }
 
-    private Vector2 getCoord(int index, int width)
+    Vector2 getCoord(int index, int width)
     {
         int x = (int)(index / width);   
         int y = index % width;
@@ -49,7 +61,7 @@ public class LevelGenerator : MonoBehaviour {
         return coord;
     }
 
-    private void generateRandGrid()
+    void generateRandGrid()
     {
         InitializeList();
         for (int i = 0; i < (iLevelWidth  * iLevelHeight); i++) {
@@ -63,10 +75,9 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    private int calcNeighbourhood(int index)
+    int calcNeighbourhood(int index)
     {
         //index = 0;
-
         int RangeX = iMooreNeighbouhood;
         int RangeY = iMooreNeighbouhood;
         
@@ -74,7 +85,6 @@ public class LevelGenerator : MonoBehaviour {
         
         int x = (int)coord.x;
         int y = (int)coord.y;
-        Debug.Log("Coord:" + y);
         int startX = x - RangeX;
         int startY = y - RangeY;
         int endX = x + RangeX;
@@ -102,31 +112,12 @@ public class LevelGenerator : MonoBehaviour {
                 }
             }
         }
-
-        //for (int row = startY; row <= endY; row++)
-        //{
-        //    for (int col = startX; col <= endX; col++)
-        //    {
-        //        if ((col != x) && (row != y))
-        //        {
-        //            int iIndex = getIndex(col, row, iLevelWidth);
-        //            int iState = levelGrid[iIndex];
-        //            if (iState == 1)
-        //            {
-        //                iLiving++;
-        //            }
-        //        }
-        //    }
-        //}
-
         return iLiving;
     }
 
-    private void applyCA()
+    void applyCA()
     {
         Debug.Log("Applying CA");
-
-
         int gridSize = (iLevelWidth * iLevelHeight) - 1;
 
         for (int iCounter = 0; iCounter < iCAIterations; iCounter++)
@@ -136,7 +127,6 @@ public class LevelGenerator : MonoBehaviour {
             for (int j = 0; j < gridSize; j++)
             {
                 int iLiving = calcNeighbourhood(j);
-                Debug.Log("Living:" + iLiving);
                 iLivingCount.Add(iLiving);
             }
 
@@ -165,7 +155,7 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    private void placeObject(GameObject[] objectArray,Vector3 position)
+    void placeObject(GameObject[] objectArray,Vector3 position)
     {
         //Place Random game object from within array -- provides variation --
         //int iRandIndex = Random.Range(0, objectArray.Length - 1);
@@ -173,7 +163,7 @@ public class LevelGenerator : MonoBehaviour {
         Instantiate(objectChoice, position, Quaternion.identity);
     }
 
-    private void buildLevel()
+    void buildLevel()
     {
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
         {
@@ -194,7 +184,7 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
-    public void CreateLevel()
+    public void SetupLevel()
     {
         Debug.Log("Creating Level");
         generateRandGrid(); //Fill grid with random states
@@ -206,8 +196,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("LevelGenerator Start: ");
-        CreateLevel();
+
 	}
 	
 	// Update is called once per frame

@@ -51,14 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841c0b45baccb364fbd56b242a98cebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iLevelWidth: 20
-  iLevelHeight: 20
+  iLevelWidth: 25
+  iLevelHeight: 25
   floorTiles:
-  - {fileID: 1695435927467064, guid: 1579286bfd709024ea21406fb7e6e87e, type: 2}
+  - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
   wallTiles:
-  - {fileID: 1269587977105314, guid: e453c7b9e938d0d49ae5d66c281d73e4, type: 2}
+  - {fileID: 1837627263825708, guid: 73b599b904a5c8c4cbb770dfee701a30, type: 2}
   collectables: []
   enemies: []
+  levelGrid: 
   fRockPercent: 25
   iCAIterations: 0
   iRockDefinition: 0
