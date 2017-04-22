@@ -6,10 +6,16 @@ using UnityEngine.UI;
 
 public class Player : Movable {
 
-    public float restartLevelDelay = 1f;
+    private Cards[] handCards;
 
+    public float restartLevelDelay = 1f;
     public Text tHP;
     public Text tScore;
+
+    //Text for the Cards
+    public Text[] tCardNames = { null, null, null };
+    //Text for the card effect
+    public Text[] tCardEffects = { null, null, null };
 
     private Animator animator;
     private int iHP;
@@ -139,6 +145,26 @@ public class Player : Movable {
             tScore.text = "Score: " + iScore;
             //SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Card")
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (handCards[i] == null)
+                {
+                    handCards[i].GenerateCard();
+
+                    tCardNames[i].text =    handCards[i].cardImmediate.sEffectName + handCards[i].cardImmediate.fEffectAmount + " & " +
+                                            '\n' + handCards[i].cardPassive.sEffectName + handCards[i].cardPassive.fEffectAmount;
+
+                    tCardEffects[i].text =  handCards[i].cardImmediate.sEffectText + handCards[i].cardImmediate.fEffectAmount + " & " +
+                                            '\n' + handCards[i].cardPassive.sEffectText + handCards[i].cardPassive.fEffectAmount;
+
+                    //SoundManager.instance.RandomizeSfx(???1, ???2);
+                    other.gameObject.SetActive(false);
+                    break;
+                }
+            }
         }
         else if (other.tag == "Exit")
         {

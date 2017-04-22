@@ -9,6 +9,7 @@ TagManager:
   - Pickup2
   - Pickup3
   - Exit
+  - Card
   layers:
   - Default
   - TransparentFX
