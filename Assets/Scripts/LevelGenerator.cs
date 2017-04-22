@@ -195,9 +195,22 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    //Check for available traversable positions
+    public bool hasTraversable()
+    {
+        if (traversablePositions.Count > 0) return true;
+        else return false;
+    }
+
     public Vector3 getRandomTraversable()
     {
-        return traversablePositions[Random.Range(0, traversablePositions.Count)];
+        if (hasTraversable())
+        {
+            int i = Random.Range(0, traversablePositions.Count);
+            traversablePositions.RemoveRange(i, 1);  //Remove position - so no other object can be placed there 
+            return traversablePositions[i];
+        }
+        else return new Vector3(0f, 0f, 0f);
     }
 
     //! Place Game objects - enemies/pickups
