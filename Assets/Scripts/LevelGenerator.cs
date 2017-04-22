@@ -27,6 +27,8 @@ public class LevelGenerator : MonoBehaviour
     private Transform levelHolder;  //!< Level Position
     private List<Vector3> gridPositions = new List<Vector3>();   //!< List of active positions on the level
 
+    private List<Vector3> traversablePositions = new List<Vector3>();    //!< List of traversable positions
+
     public List<int> levelGrid = new List<int>();
 
     //CA Variables
@@ -63,6 +65,7 @@ public class LevelGenerator : MonoBehaviour
 
     void generateRandGrid()
     {
+        levelGrid.Clear();
         InitializeList();
         for (int i = 0; i < (iLevelWidth  * iLevelHeight); i++) {
             int iChance = Random.Range(0, 100);
@@ -165,12 +168,14 @@ public class LevelGenerator : MonoBehaviour
 
     void buildLevel()
     {
+        traversablePositions.Clear();
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
         {
            if (levelGrid[i] == 0)
             {
                 //Place floor tile
                 placeObject(floorTiles, gridPositions[i]);
+                traversablePositions.Add(gridPositions[i]);
             }
            else if (levelGrid[i] == 1)
             {
@@ -184,11 +189,15 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    public Vector3 getRandomTraversable()
+    {
+        return traversablePositions[Random.Range(0, traversablePositions.Count)];
+    }
+
     public void SetupLevel()
     {
         Debug.Log("Creating Level");
         generateRandGrid(); //Fill grid with random states
-      
         applyCA();          //Apply Cellular automata to the random grid
         buildLevel();       //Create object instances
         Debug.Log("Level Created");

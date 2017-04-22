@@ -122,6 +122,9 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  restartLevelDelay: 1
+  tHP: {fileID: 0}
+  tScore: {fileID: 0}
 --- !u!212 &212461378067194864
 SpriteRenderer:
   m_ObjectHideFlags: 1

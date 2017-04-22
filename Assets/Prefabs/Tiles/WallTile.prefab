@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974059150042626}
   - component: {fileID: 212816468935678628}
-  - component: {fileID: 61942422175820704}
+  - component: {fileID: 61765859827521866}
   m_Layer: 8
   m_Name: WallTile
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61942422175820704
+--- !u!61 &61765859827521866
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,7 +49,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1837627263825708}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 34f55b77e00139a49b5b2781dd2cfdce, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -12,6 +12,8 @@ public abstract class Movable : MonoBehaviour {
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
 
+    private Vector2 prevPos;
+
     // Use this for initialization
     protected virtual void Start () {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -32,6 +34,13 @@ public abstract class Movable : MonoBehaviour {
         {
             SmoothMovement(new Vector3(xDir, yDir, 0f) / Time.deltaTime);
         }
+        else
+        {
+            transform.position = prevPos;
+        }
+        if (hit.distance <= 0);
+
+        prevPos = transform.position;
 
         return false;
     }
