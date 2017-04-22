@@ -117,12 +117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396d8b97c8219864f95ccfc1a221f67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.1
+  pushBack: 10
+  moveTime: 0.5
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
   iDamage: 1
   iSkipAmount: 5
+  iSkipMove: 5
 --- !u!212 &212280991434801176
 SpriteRenderer:
   m_ObjectHideFlags: 1

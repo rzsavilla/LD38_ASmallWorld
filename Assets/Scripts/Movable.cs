@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Movable : MonoBehaviour {
 
+    public float pushBack = 10f;
     public float moveTime = 0.1f;
     public LayerMask blockingLayer;
 
@@ -21,7 +22,7 @@ public abstract class Movable : MonoBehaviour {
 	protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
         Vector2 start = transform.position;
-        Vector2 end = start + new Vector2(xDir, yDir);
+        Vector2 end = start + (new Vector2(xDir, yDir) * Time.deltaTime);
 
         boxCollider.enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);
@@ -29,23 +30,16 @@ public abstract class Movable : MonoBehaviour {
 
         if (hit.transform == null)
         {
-            StartCoroutine(SmoothMovement(end));
+            SmoothMovement(new Vector3(xDir, yDir, 0f) / Time.deltaTime);
         }
 
         return false;
     }
 
-    protected IEnumerator SmoothMovement(Vector3 end)
+    protected void SmoothMovement(Vector3 end)
     {
-        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
-        while (sqrRemainingDistance > float.Epsilon)
-        {
-            Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
-            rb2D.MovePosition(newPosition);
-            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-            yield return null;
-        }
+        Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+        rb2D.MovePosition(newPosition);
     }
 
     protected virtual void AttemptMove<T>(int xDir, int yDir)

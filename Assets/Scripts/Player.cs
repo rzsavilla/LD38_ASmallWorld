@@ -8,13 +8,15 @@ public class Player : Movable {
     private Animator animator;
     private int iHP;
     private int iScore;
+    private Vector3 vLastPosition;
+    private Vector2 vDirection;
 
 	// Use this for initialization
 	protected override void Start ()
     {
         animator = GetComponent<Animator>();
-        //HP = GameManager.instance.playerHP;
-        //iScore = GameManager.instance.score;
+        iHP = GameManager.instance.iPlayerHP;
+        iScore = GameManager.instance.iScore;
         //Set da text
 
         base.Start();
@@ -22,8 +24,8 @@ public class Player : Movable {
 
     private void OnDisable()
     {
-        //GameManager.instance.playerHP = iHP;
-        //GameManager.instance.score = iScore;
+        GameManager.instance.iPlayerHP = iHP;
+        GameManager.instance.iScore = iScore;
     }
 
     // Update is called once per frame
@@ -34,19 +36,22 @@ public class Player : Movable {
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
 
-        if (horizontal != 0)
+        //Will make it only move in 4 way not 8 way
+        /*if (horizontal != 0)
         {
             vertical = 0;
-        }
+        }*/
 
         if (horizontal != 0 || vertical != 0)
         {
-            //AttemptMove<Wall>(horizontal, vertical);
+            AttemptMove<Enemy>(horizontal, vertical);
         }
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
+        vDirection = new Vector2(xDir, yDir);
+        vLastPosition = transform.position;
         base.AttemptMove<T>(xDir, yDir);
 
         RaycastHit2D hit;
@@ -83,6 +88,8 @@ public class Player : Movable {
 
     protected override void OnCantMove<T>(T component)
     {
+        transform.position = vLastPosition - (new Vector3(vDirection.x, vDirection.y) * Time.deltaTime * pushBack);
+        
         /*Wall hitWall = component as Wall;
         hitWall.DamageWall(wallDamage);
         animator.SetTrigger("playerChop");*/
@@ -107,7 +114,7 @@ public class Player : Movable {
         {
             //SoundManager.instance.PlaySingle(gameoverSound);
             //SoundManager.instance.musicSource.Stop();
-            //GameManager.instance.GameOver();
+            GameManager.instance.GameOver();
         }
     }
 }

@@ -6,31 +6,35 @@ public class Enemy : Movable {
 
     public int iDamage;
     public int iSkipAmount = 5;
-
-    private int iSkipMove;
+    public int iSkipMove;
     private Animator animator;
     private Transform target;
+    private Vector2 vDirection;
 
     // Use this for initialization
     protected override void Start ()
     {
-        //GameManager.instance.AddEnemyToList(this);
+        GameManager.instance.AddEnemyToList(this);
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        iSkipMove = iSkipAmount;
+        ResetSkipMove();
         base.Start();
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        if (iSkipMove <= 0)
-        {
-            iSkipMove = iSkipAmount;
-            return;
-        }
+        vDirection = new Vector2(xDir, yDir);
+        base.AttemptMove<Player>(xDir, yDir);
+        ResetSkipMove();
+    }
 
-        base.AttemptMove<T>(xDir, yDir);
+    public void ResetSkipMove()
+    {
+        iSkipMove = iSkipAmount;
+    }
 
+    public void DecSkipMove()
+    {
         iSkipMove--;
     }
 
@@ -39,22 +43,17 @@ public class Enemy : Movable {
         int xDir = 0;
         int yDir = 0;
 
-        if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
-        {
-            yDir = target.position.y > transform.position.y ? 1 : -1;
-        }
-        else
-        {
-            xDir = target.position.x > transform.position.x ? 1 : -1;
-        }
+        yDir = target.position.y > transform.position.y ? 1 : -1;
+        xDir = target.position.x > transform.position.x ? 1 : -1;
 
         AttemptMove<Player>(xDir, yDir);
     }
 
     protected override void OnCantMove<T>(T component)
-    {
-        
+    {        
         Player hitPlayer = component as Player;
+
+        hitPlayer.transform.position += new Vector3(vDirection.x, vDirection.y) * Time.deltaTime * pushBack;
 
         //animator.SetTrigger("enemyAttack");
 
