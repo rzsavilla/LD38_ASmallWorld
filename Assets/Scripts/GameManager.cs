@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
     private List<Enemy> enemies;
     private bool doingSetup;
 
-    private Player player;
-
     // Use this for initialization
     void Awake () {
         if (instance == null)
@@ -74,8 +72,16 @@ public class GameManager : MonoBehaviour
         //Invoke("HideLevelImage", levelStartDelay);
         enemies.Clear();
         levelGenerator.SetupLevel();
+        placeGameObjects();
+    }
+    void placeGameObjects()
+    {
+        //Place Player character onto traversable space
+        Player player;
         player = GameObject.Find("Player").GetComponent<Player>();
         player.transform.position = levelGenerator.getRandomTraversable();
+
+
     }
 
     private void HideLevelImage()
