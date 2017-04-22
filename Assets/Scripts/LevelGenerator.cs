@@ -20,9 +20,12 @@ public class LevelGenerator : MonoBehaviour
     public int iLevelWidth = 10;
     public int iLevelHeight = 10;
 
+    public int iPickupCount = 1;
+    public int iEnemyCount = 1;
+
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
-    public GameObject[] collectables;
+    public GameObject[] pickups;
     public GameObject[] enemies;
     private Transform levelHolder;  //!< Level Position
     private List<Vector3> gridPositions = new List<Vector3>();   //!< List of active positions on the level
@@ -161,8 +164,8 @@ public class LevelGenerator : MonoBehaviour
     void placeObject(GameObject[] objectArray,Vector3 position)
     {
         //Place Random game object from within array -- provides variation --
-        //int iRandIndex = Random.Range(0, objectArray.Length - 1);
-        GameObject objectChoice = objectArray[0];
+        int iRandIndex = Random.Range(0, objectArray.Length);
+        GameObject objectChoice = objectArray[iRandIndex];
         Instantiate(objectChoice, position, Quaternion.identity);
     }
 
@@ -194,22 +197,29 @@ public class LevelGenerator : MonoBehaviour
         return traversablePositions[Random.Range(0, traversablePositions.Count)];
     }
 
+    //! Place Game objects - enemies/pickups
+    public void placeObjects()
+    {
+        //Place num Pickups
+        for (int i = 0; i < iPickupCount; i++)
+        {
+            placeObject(pickups, getRandomTraversable());
+        }
+
+        //Place num Enemies
+        for (int i = 0; i < iEnemyCount; i++)
+        {
+            placeObject(enemies, getRandomTraversable());
+        }
+    }
+
     public void SetupLevel()
     {
         Debug.Log("Creating Level");
         generateRandGrid(); //Fill grid with random states
         applyCA();          //Apply Cellular automata to the random grid
         buildLevel();       //Create object instances
+        placeObjects();     //Place pickups enemies etc
         Debug.Log("Level Created");
     }
-
-	// Use this for initialization
-	void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
