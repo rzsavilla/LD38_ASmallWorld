@@ -13,9 +13,11 @@ public class Player : Movable {
     public Text tCard;
     public int iCurrentCard;
     public int iSkipMove = 0;
+    public int iSkipAmount = 20;
     public int iAttackCooldown = 0;
     public int iMaxAttackCooldown = 20;
     public int iHookLength = 200;
+    public float fHookMove = 2f;
     public GameObject hook;
 
     private Animator animator;
@@ -126,6 +128,15 @@ public class Player : Movable {
         //CheckIfGameOver();
     }
 
+    //Attempt Move, but with a speed multiplier
+    protected override void AttemptMove<T>(int xDir, int yDir, float speed)
+    {
+        vDirection = new Vector2(xDir, yDir);
+        base.AttemptMove<T>(xDir, yDir, speed);
+
+        //CheckIfGameOver();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Pickup1")
@@ -172,7 +183,7 @@ public class Player : Movable {
     {
         PushBack();
 
-        iSkipMove = 25;
+        iSkipMove = iSkipAmount;
     }
 
     //Function for being pushed back when walking into an enemy
@@ -299,7 +310,13 @@ public class Player : Movable {
 
         AnimCheck(horizontal, vertical);
 
-        if (horizontal != 0 || vertical != 0)
+        //If travelling by hook, ignore movement
+        if (hook.GetComponent<Hook>().iTarget == 2)
+        {
+            horizontal = 0;
+            vertical = 0;
+        }
+        else if (horizontal != 0 || vertical != 0)
         {
             AttemptMove<Wall>(horizontal, vertical);
         }
@@ -383,5 +400,30 @@ public class Player : Movable {
     {
         bHookUse = false;
         hook.SetActive(false);
+    }
+
+    public void TravelTo(Vector3 destination)
+    {
+        int horizontal = 0;
+        int vertical = 0;
+
+        if (destination.x - transform.position.x > 0)
+        {
+            horizontal = 1;
+        }
+        else if (destination.x - transform.position.x < 0)
+        {
+            horizontal = -1;
+        }
+        if (destination.y - transform.position.y > 0)
+        {
+            vertical = 1;
+        }
+        else if (destination.y - transform.position.y < 0)
+        {
+            vertical = -1;
+        }
+
+        AttemptMove<Hook>(horizontal, vertical, fHookMove);
     }
 }

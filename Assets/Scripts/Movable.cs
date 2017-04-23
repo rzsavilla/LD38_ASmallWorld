@@ -57,10 +57,62 @@ public abstract class Movable : MonoBehaviour {
         }
     }
 
+    protected bool Move(int xDir, int yDir, float speed)
+    {
+        Vector2 position = transform.position;
+        Vector2 direction = new Vector2(xDir, yDir) * Time.deltaTime * speed;
+
+        boxCollider.enabled = false;
+        hit = Physics2D.Linecast(position, position + direction, blockingLayer);
+        boxCollider.enabled = true;
+        if (hit.transform == null)
+        {
+            rb2D.MovePosition(position + direction);
+            transform.position = position + direction;
+            position = transform.position;
+            for (int i = 1; i < iSpeed; i++)
+            {
+                boxCollider.enabled = false;
+                hit = Physics2D.Linecast(position, position + direction, blockingLayer);
+                boxCollider.enabled = true;
+
+                if (hit.transform == null)
+                {
+                    rb2D.MovePosition(position + direction);
+                    transform.position = position + direction;
+                    position = transform.position;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     protected virtual void AttemptMove<T>(int xDir, int yDir)
         where T:Component
     {
         bool canMove = Move(xDir, yDir);
+
+        if (canMove)
+            return;
+
+        T hitComponent = hit.transform.GetComponent<T>();
+
+        if (!canMove && hitComponent != null)
+            OnCantMove(hitComponent);
+    }
+
+    protected virtual void AttemptMove<T>(int xDir, int yDir, float speed)
+        where T : Component
+    {
+        bool canMove = Move(xDir, yDir, speed);
 
         if (canMove)
             return;
