@@ -147,6 +147,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114329227860317570, guid: 313c3f7139ab7374f8da5cb78145e54b,
+        type: 2}
+      propertyPath: iPlayerHP
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114939052714971216, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
@@ -316,6 +321,11 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: fSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}

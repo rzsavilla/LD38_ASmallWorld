@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Movable {
 
-    public int iDamage = 1;
+    public int iDamage = 5;
     public int iSkipHit = 20;
     public int iSkipAmount = 5;
     public int iSkipMove = 5;

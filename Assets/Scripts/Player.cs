@@ -10,10 +10,12 @@ public class Player : Movable {
     public float pushBack = 10f;
     public Text tHP;
     public Text tScore;
+    public Text tCard;
     public int iCurrentCard;
 
     private Animator animator;
     private int iHP;
+    private int iMaxHP;
     private int iScore;
     private Vector2 vDirection;
     private List<Card> cards;
@@ -30,10 +32,17 @@ public class Player : Movable {
         cards = GameManager.instance.GetCards();
         iCurrentCard = GameManager.instance.iCurrentCard;
         iHP = GameManager.instance.iPlayerHP;
+        iMaxHP = GameManager.instance.iPlayerMaxHP;
         iScore = GameManager.instance.iScore;
+
+        for (int i = 0; i < GameManager.instance.iNumCards; i++)
+        {
+            cards[i].SetPlayer(this);
+        }
 
         tHP.text = "HP: " + iHP;
         tScore.text = "Score: " + iScore;
+        tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
 
         base.Start();
 	}
@@ -41,6 +50,7 @@ public class Player : Movable {
     private void OnDisable()
     {
         GameManager.instance.iPlayerHP = iHP;
+        GameManager.instance.iPlayerMaxHP = iMaxHP;
         GameManager.instance.iScore = iScore;
         GameManager.instance.SetCards(cards);
         GameManager.instance.iCurrentCard = iCurrentCard;
@@ -131,6 +141,18 @@ public class Player : Movable {
             Invoke("Restart", restartLevelDelay);
             enabled = false;
         }
+        else if (other.tag == "Card")
+        {
+            for (int i = 0; i < GameManager.instance.iNumCards; i++)
+            {
+                if (cards[i].GenerateCard())
+                {
+                    tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+                    other.gameObject.SetActive(false);
+                    break;
+                }
+            }            
+        }
     }
 
     protected override void OnCantMove<T>(T component)
@@ -198,6 +220,18 @@ public class Player : Movable {
             GameManager.instance.GameOver();
             DestroyObject(this);
         }
+    }
+
+    public void GainScore(int score)
+    {
+        iScore += score;
+    }
+
+    public void GainHP(int health)
+    {
+        iHP += health;
+        if (iHP > iMaxHP)
+            iHP = iMaxHP;
     }
 
     //////////
@@ -284,5 +318,16 @@ public class Player : Movable {
         {
             iCurrentCard = 3;
         }
+
+        tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+    }
+
+    public bool UseCard()
+    {
+        bool check = cards[iCurrentCard - 1].DestroyCard();
+        tHP.text = "HP: " + iHP;
+        tScore.text = "Score: " + iScore;
+        tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+        return check;
     }
 }

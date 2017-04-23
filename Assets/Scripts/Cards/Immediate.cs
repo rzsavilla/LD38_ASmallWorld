@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class Immediate {
 
     public int iRarity;
-    public int iEffect;
+    public int iEffect = -1;
     private int iNumEffects;
 
 	// Use this for initialization

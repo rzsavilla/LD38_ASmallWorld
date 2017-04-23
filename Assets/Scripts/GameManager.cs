@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance = null;
 
     public LevelGenerator levelGenerator;
 
-    public int iPlayerHP = 10;
+    public int iPlayerHP = 100;
+    public int iPlayerMaxHP = 100;
     public int iScore = 0;
     public int iNumEffects = 3;
     public int iNumCards = 3;
@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update () {
+        //Update all enemies on screen
 		for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].DecSkipMove();
@@ -142,17 +143,12 @@ public class GameManager : MonoBehaviour
             activeCamera.transform.position = newPos;
         }
 
-        //Reload Level
-        //Will be removed when done
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            InitGame();
-        }
-
+        ////////////////////
         //Input manager. Keys are checked here, and the desired effect, or the desired
         //effect in another class is called
+        ////////////////////
 
-        //Movement (Only with WASD)
+        //Movement (Only with WASD) (Will always be called, for animations sake)
         player.Movement(
                 Input.GetKey(KeyCode.W),
                 Input.GetKey(KeyCode.A),
@@ -181,6 +177,28 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             player.SwitchCard(KeyCode.Alpha3);
+        }
+
+        //Use Card
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            //Return true if the usage is successful
+            if (player.UseCard())
+            {
+
+            }
+            //Returns false if card is unusable or none-existent
+            else
+            {
+
+            }
+        }
+
+        //Reload Level
+        //Will be removed when done
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InitGame();
         }
     }
 

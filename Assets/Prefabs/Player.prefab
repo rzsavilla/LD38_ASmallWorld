@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d0a23d8e9476540b2d19b72445bc80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iSpeed: 10
+  iSpeed: 5
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -125,6 +125,7 @@ MonoBehaviour:
   pushBack: 10
   tHP: {fileID: 0}
   tScore: {fileID: 0}
+  iCurrentCard: 0
 --- !u!212 &212461378067194864
 SpriteRenderer:
   m_ObjectHideFlags: 1
