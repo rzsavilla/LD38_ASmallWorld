@@ -171,8 +171,14 @@ public class GameManager : MonoBehaviour
             player.SwitchCard(KeyCode.Alpha3);
         }
 
-        //Use Card
+        //Attack with Hook
         if (Input.GetKeyDown(KeyCode.J))
+        {
+            player.Attack();
+        }
+
+        //Use Card
+        if (Input.GetKeyDown(KeyCode.K))
         {
             //Return true if the usage is successful
             if (player.UseCard())

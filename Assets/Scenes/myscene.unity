@@ -468,41 +468,11 @@ Prefab:
       propertyPath: tScore
       value: 
       objectReference: {fileID: 1067720336}
-    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: m_UseFullKinematicContacts
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50102829819963478, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: fSpeed
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
         type: 2}
       propertyPath: tCard
       value: 
       objectReference: {fileID: 419499295}
-    - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: iSpeed
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}
   m_IsPrefabParent: 0

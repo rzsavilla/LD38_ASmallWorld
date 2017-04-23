@@ -13,6 +13,9 @@ public class Player : Movable {
     public Text tCard;
     public int iCurrentCard;
     public int iSkipMove = 0;
+    public int iAttackCooldown = 0;
+    public int iMaxAttackCooldown = 20;
+    public GameObject hook;
 
     private Animator animator;
     private int iHP;
@@ -20,6 +23,7 @@ public class Player : Movable {
     private int iScore;
     private Vector2 vDirection;
     private List<Card> cards;
+    public bool bHookUse = false;
 
     //Score values for pickups
     private int iPickup1 = 5;
@@ -29,6 +33,8 @@ public class Player : Movable {
     // Use this for initialization
     protected override void Start ()
     {
+        vDirection = new Vector2(0f, -1f);
+
         animator = GetComponent<Animator>();
         cards = GameManager.instance.GetCards();
         iCurrentCard = GameManager.instance.iCurrentCard;
@@ -63,6 +69,13 @@ public class Player : Movable {
         if (iSkipMove > 0)
         {
             iSkipMove--;
+        }
+        if (!bHookUse)
+        {
+            if (iAttackCooldown > 0)
+            {
+                iAttackCooldown--;
+            }
         }
     }
 
@@ -333,5 +346,33 @@ public class Player : Movable {
         tScore.text = "Score: " + iScore;
         tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
         return check;
+    }
+
+    public void Attack()
+    {
+        if (iAttackCooldown <= 0 && !bHookUse)
+        {
+            hook = Instantiate(hook, transform.position, Quaternion.identity);
+            hook.SetActive(true);
+            if (hook.GetComponent<Hook>().Attack(this, vDirection))
+            {
+                iAttackCooldown = iMaxAttackCooldown;
+                bHookUse = true;
+            }   
+            else
+            {
+                DestroyHook();
+            }
+        }
+        else
+        {
+            //Can't attack until cooldown over
+        }
+    }
+
+    public void DestroyHook()
+    {
+        bHookUse = false;
+        hook.SetActive(false);
     }
 }
