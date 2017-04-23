@@ -20,6 +20,7 @@ public class Player : Movable {
     public int iHookLength = 200;
     public float fHookMove = 2f;
     public GameObject hook;
+    public List<GameObject> hooks;
 
     private Animator animator;
     private int iHP;
@@ -81,13 +82,16 @@ public class Player : Movable {
                 iAttackCooldown--;
             }
         }
-        if (hook.GetComponent<Hook>().iTarget == 2)
+        if (hooks.Count > 0)
         {
-            iState = 1;
-        }
-        else
-        {
-            iState = 0;
+            if (hooks[hooks.Count - 1].GetComponent<Hook>().iTarget == 2)
+            {
+                iState = 1;
+            }
+            else
+            {
+                iState = 0;
+            }
         }
     }
 
@@ -138,7 +142,7 @@ public class Player : Movable {
     }
 
     //Attempt Move, but with a speed multiplier
-    protected override void AttemptMove<T>(int xDir, int yDir, float speed)
+    protected override void AttemptMove<T>(float xDir, float yDir, float speed)
     {
         vDirection = new Vector2(xDir, yDir);
         base.AttemptMove<T>(xDir, yDir, speed);
@@ -320,10 +324,17 @@ public class Player : Movable {
         AnimCheck(horizontal, vertical);
 
         //If travelling by hook, ignore movement
-        if (hook.GetComponent<Hook>().iTarget == 2)
+        if (hooks.Count > 0)
         {
-            horizontal = 0;
-            vertical = 0;
+            if (hooks[hooks.Count - 1].GetComponent<Hook>().iTarget == 2)
+            {
+                horizontal = 0;
+                vertical = 0;
+            }
+            else if (horizontal != 0 || vertical != 0)
+            {
+                AttemptMove<Wall>(horizontal, vertical);
+            }
         }
         else if (horizontal != 0 || vertical != 0)
         {
@@ -379,9 +390,16 @@ public class Player : Movable {
     {
         if (iAttackCooldown <= 0 && !bHookUse)
         {
-            hook = Instantiate(hook, transform.position, Quaternion.identity);
-            hook.SetActive(true);
-            if (hook.GetComponent<Hook>().Attack(this, vDirection, iHookLength))
+            if (hooks.Count > 0)
+            {
+                for(int i = 0; i < hooks.Count; i++)
+                {
+                    DestroyImmediate(hooks[0], true);
+                }
+            }
+            hooks.Add(Instantiate(hook, transform.position, Quaternion.identity));
+            hooks[hooks.Count-1].SetActive(true);
+            if (hooks[hooks.Count-1].GetComponent<Hook>().Attack(this, vDirection, iHookLength))
             {
                 iAttackCooldown = iMaxAttackCooldown;
                 bHookUse = true;
@@ -401,38 +419,60 @@ public class Player : Movable {
     {
         if (bHookUse)
         {
-            hook.GetComponent<Hook>().Return();
+            hooks[hooks.Count - 1].GetComponent<Hook>().Return();
         }
     }
 
     public void DestroyHook()
     {
+        for (int i = 0; i < hooks.Count; i++)
+        {
+            DestroyImmediate(hooks[0], true);
+        }
+        hooks.Clear();
+
         bHookUse = false;
-        hook.SetActive(false);
     }
 
     public void TravelTo(Vector3 destination)
     {
-        int horizontal = 0;
-        int vertical = 0;
+        float horizontal = 0f;
+        float vertical = 0f;
 
         if (destination.x - transform.position.x > 0)
         {
             horizontal = 1;
+            if (destination.x - transform.position.x < 1f)
+            {
+                horizontal = destination.x - transform.position.x;
+            }
         }
+        
         else if (destination.x - transform.position.x < 0)
         {
             horizontal = -1;
+            if (destination.x - transform.position.x > -1f)
+            {
+                horizontal = destination.x - transform.position.x;
+            }
         }
         if (destination.y - transform.position.y > 0)
         {
             vertical = 1;
+            if (destination.y - transform.position.y < 1f)
+            {
+                vertical = destination.y - transform.position.y;
+            }
         }
         else if (destination.y - transform.position.y < 0)
         {
             vertical = -1;
+            if (destination.y - transform.position.y > -1f)
+            {
+                vertical = destination.y - transform.position.y;
+            }
         }
 
-        AttemptMove<Hook>(horizontal, vertical, fHookMove);
+        AttemptMove<Wall>(horizontal, vertical, fHookMove);
     }
 }

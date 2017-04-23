@@ -57,7 +57,7 @@ public abstract class Movable : MonoBehaviour {
         }
     }
 
-    protected bool Move(int xDir, int yDir, float speed)
+    protected bool Move(float xDir, float yDir, float speed)
     {
         Vector3 end = transform.position + (new Vector3(xDir, yDir) * Time.deltaTime * speed);
 
@@ -125,7 +125,7 @@ public abstract class Movable : MonoBehaviour {
             OnCantMove(hitComponent);
     }
 
-    protected virtual void AttemptMove<T>(int xDir, int yDir, float speed)
+    protected virtual void AttemptMove<T>(float xDir, float yDir, float speed)
         where T : Component
     {
         bool canMove = Move(xDir, yDir, speed);
