@@ -1,10 +1,55 @@
-Art
-UI
-Menus
-Set up perm window size and stuff
+Art - Everything
+UI - After art
+Menus - After UI
+Set up perm window size and stuff - probably first
 
 
 
-Grappling Hook
-Cards
-Level Generation
+Grappling Hook and Chain -
+Add the chain, a tile drawn multiple times to fill up the space between player and hook.
+
+Cards -
+Implement more different effects, and possibly add the passive effect. Create some sort of ui that can handle it all.
+
+Level Generation -
+Ask Rozen
+
+
+
+
+
+
+
+
+----
+
+
+
+
+
+Card ability system
+
+At the end of each level, you have a chance to (or always?) collect a card (OR could be after certain points thresholds, making points more important, OR even both!), which may or may not have passive effects, and may or may not have immediate effects when used. (If no immediate effects, using it will simple get rid of it). These will give the player an edge as they go through the levels, and players will have to micro-manage these cards to choose the best one for the upcoming battle. 
+Could extend this further to how enemies fight, or rather abilities enemies have, such as making you drop or lose cards, or even taking cards and trying to escape with them.
+Abilities could also be negative effects (denoted below with an *)
+Max Cards - 3 or 5?
+Passive Abilities:
+Increase player speed*
+Increase attack speed*
+Increase defence?* (Dependant on enemy? Sort of extra)
+Decrease attack cooldown*
+Points multiplier*
+Revival (on death) (Rare)
+Gain HP on level complete*
+Gain Score on level complete*
+Decrease difficulty* (Variations, such as enemy damage, speed, amount)
+Max HP*
+Immediate Abilities:
+Gain HP
+Gain Score (increases with level?)
+End Level (Rare)
+Attack ability (Could be simple fireball, or AOE with hook, bombs, etc)
+Invincibility
+Invisible (Enemies don’t notice you)
+Spawn items/ cards
+Points multiplier (Lrg)
