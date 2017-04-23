@@ -176,6 +176,11 @@ public class GameManager : MonoBehaviour
         {
             player.Attack();
         }
+        //Return with Hook
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            player.ReturnHook();
+        }
 
         //Use Card
         if (Input.GetKeyDown(KeyCode.K))

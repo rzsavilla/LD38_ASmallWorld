@@ -370,6 +370,14 @@ public class Player : Movable {
         }
     }
 
+    public void ReturnHook()
+    {
+        if (bHookUse)
+        {
+            hook.GetComponent<Hook>().Return();
+        }
+    }
+
     public void DestroyHook()
     {
         bHookUse = false;

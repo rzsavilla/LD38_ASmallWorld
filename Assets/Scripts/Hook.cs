@@ -121,4 +121,12 @@ public class Hook : MonoBehaviour {
             }
         }
     }
+
+    public void Return()
+    {
+        if (bTarget)
+        {
+            bTarget = false;
+        }
+    }
 }
