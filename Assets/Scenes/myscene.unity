@@ -476,7 +476,7 @@ Prefab:
     - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
         type: 2}
       propertyPath: iHookLength
-      value: 200
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}

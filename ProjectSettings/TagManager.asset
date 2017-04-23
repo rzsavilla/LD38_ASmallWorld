@@ -10,6 +10,7 @@ TagManager:
   - Pickup3
   - Exit
   - Card
+  - Wall
   layers:
   - Default
   - TransparentFX

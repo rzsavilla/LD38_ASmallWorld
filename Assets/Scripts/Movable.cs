@@ -59,7 +59,23 @@ public abstract class Movable : MonoBehaviour {
 
     protected bool Move(int xDir, int yDir, float speed)
     {
-        Vector2 position = transform.position;
+        Vector3 end = transform.position + (new Vector3(xDir, yDir) * Time.deltaTime * speed);
+
+        rb2D.MovePosition(end);
+        transform.position = end;
+
+        for (int i = 1; i < iSpeed; i++)
+        {
+            end = transform.position + (new Vector3(xDir, yDir) * Time.deltaTime * speed);
+
+            rb2D.MovePosition(end);
+            transform.position = end;
+        }
+
+        return true;
+
+        //Original movement code. Using this will cause collisions with objects while travelling
+        /*Vector2 position = transform.position;
         Vector2 direction = new Vector2(xDir, yDir) * Time.deltaTime * speed;
 
         boxCollider.enabled = false;
@@ -92,7 +108,7 @@ public abstract class Movable : MonoBehaviour {
         else
         {
             return false;
-        }
+        }*/
     }
 
     protected virtual void AttemptMove<T>(int xDir, int yDir)

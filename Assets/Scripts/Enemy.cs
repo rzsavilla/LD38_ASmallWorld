@@ -103,15 +103,24 @@ public class Enemy : Movable {
     {        
         Player hitPlayer = component as Player;
 
-        hitPlayer.PushBack(vDirection);
+        if (hitPlayer.iState == 0)
+        {
 
-        iSkipMove = iSkipHit;
+            hitPlayer.PushBack(vDirection);
 
-        //animator.SetTrigger("enemyAttack");
+            iSkipMove = iSkipHit;
 
-        hitPlayer.LoseHP(iDamage);
+            //animator.SetTrigger("enemyAttack");
 
-        //SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
+            hitPlayer.LoseHP(iDamage);
+
+            //SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
+
+        }
+        else if (hitPlayer.iState == 1)
+        {
+            PushBack(-vDirection);
+        }
     }
 
     //Function for being pushed back from the enemy code

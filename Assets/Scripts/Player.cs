@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Player : Movable {
 
+    public int iState = 0;
     public float restartLevelDelay = 1f;
     public float pushBack = 10f;
     public Text tHP;
@@ -79,6 +80,14 @@ public class Player : Movable {
             {
                 iAttackCooldown--;
             }
+        }
+        if (hook.GetComponent<Hook>().iTarget == 2)
+        {
+            iState = 1;
+        }
+        else
+        {
+            iState = 0;
         }
     }
 

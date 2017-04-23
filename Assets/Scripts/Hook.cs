@@ -109,9 +109,15 @@ public class Hook : MonoBehaviour {
             else
             {
                 iTarget = 0;
+                //Hit an enemy, so push them back
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
                     hit.transform.gameObject.GetComponent<Enemy>().PushBack(vDirection);
+                }
+                //Hit a wall, need to travel to it
+                else if (hit.transform.gameObject.tag == "Wall")
+                {
+                    iTarget = 2;
                 }
             }
         }
