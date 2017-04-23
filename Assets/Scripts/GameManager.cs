@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     private List<Enemy> enemies;
     private bool doingSetup;
 
+    private Player player;
+    private GameObject activeCamera;
+
     // Use this for initialization
     void Awake () {
         if (instance == null)
@@ -73,11 +76,11 @@ public class GameManager : MonoBehaviour
         enemies.Clear();
         levelGenerator.SetupLevel();
         placeGameObjects();
+        activeCamera = GameObject.Find("Main Camera");
     }
     void placeGameObjects()
     {
         //Place Player character onto traversable space
-        Player player;
         player = GameObject.Find("Player").GetComponent<Player>();
         player.transform.position = levelGenerator.getPlayerStartPos();
     }
@@ -104,6 +107,14 @@ public class GameManager : MonoBehaviour
             {
                 enemies[i].MoveEnemy();
             }
+        }
+
+        //Update camera to follow player
+        if (player != null && activeCamera != null)
+        {
+            Vector3 newPos = player.transform.position;
+            newPos.z = activeCamera.transform.position.z;
+            activeCamera.transform.position = newPos;
         }
 	}
 
