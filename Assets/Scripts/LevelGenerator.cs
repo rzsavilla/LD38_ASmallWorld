@@ -192,37 +192,8 @@ public class LevelGenerator : MonoBehaviour
         return false;
     }
 
-    public int iCaveCount = 0;
-    public int iCaveCounter = 0;
-
+    public int iLargestCave = 0;
     public int iNumCaves = 0;
-
-    void applyFlood()
-    {
-        cavesList = new List<List<int>>();
-        iCaveCount = 0;
-        iCaveCounter = -1;
-        iNumCaves = 0;
-        iVisited.Clear();
-        cavesList.Clear();
-        iTraversable = 0;
-
-        //Debug.Log("Applying Flood");
-        for (int i = 0; i < levelGrid.Count; i++)
-        {
-            if (isInList(i, iVisited) == false)
-            {
-                if (levelGrid[i] == 0)
-                {
-                    //Debug.Log("New Cave:" + i);
-                    iCaveCounter++;
-                    cavesList.Add(new List<int>());
-                    floodFill(11);
-                }
-            }
-        }
-        iNumCaves = cavesList.Count;
-    }
 
     bool isWithinBounds(Vector2 pos)
     {
@@ -252,46 +223,7 @@ public class LevelGenerator : MonoBehaviour
         else return true;
     }
 
-    public int iTraversable = 0;
-
-    void floodFill(int index)
-    {
-        ////Starting cell
-        Vector2 v = getCoord(index, iLevelWidth);
-        int startX = (int)v.x;
-        int startY = (int)v.y;
-
-        //If Cell has not been visited and cell is traversable
-        if (isInList(index, iVisited) == false) //Not visited
-        {
-            iVisited.Add(index);
-            if (levelGrid[index] == 0)  
-            {
-                //Debug.Log("Is Visited:" + isVisited(index));
-                //Current
-                cavesList[iCaveCounter].Add(index);
-
-                iTraversable++;
-
-                //Add Look at adjacent cells
-                //Orthoganal/Four way expansion
-                //Down
-                Vector2 down = new Vector2(startX, startY - 1);
-                if (isWithinBounds(down)) floodFill(getIndex((int)down.x, (int)down.y, iLevelWidth));
-                //Up
-                Vector2 up = new Vector2(startX, startY + 1);
-                if (isWithinBounds(up)) floodFill(getIndex((int)up.x, (int)up.y, iLevelWidth));
-                //Right
-                Vector2 right = new Vector2(startX + 1, startY);
-                if (isWithinBounds(right)) floodFill(getIndex((int)right.x, (int)right.y, iLevelWidth));
-                //Left
-                Vector2 left = new Vector2(startX - 1, startY);
-                if (isWithinBounds(left)) floodFill(getIndex((int)left.x, (int)left.y, iLevelWidth));
-            }
-        }
-    }
-
-    void FloodFill2()
+    void floodFill()
     {
         List<List<int>> iCaves = new List<List<int>>();   //Unconnected Caves
         //Loop through level grid
@@ -299,98 +231,67 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int y = 0; y < iLevelHeight; y++)
             {
-                    int index = getIndex(x, y, iLevelWidth);
-                    if (levelGrid[index] == 0)  //Unvisited
+                int index = getIndex(x, y, iLevelWidth);
+                if (levelGrid[index] == 0)  //Unvisited
+                {
+                    Debug.Log(index);
+                    List<int> cave = new List<int>();         //Unconnected caves //Open List
+                    List<int> totalCaves = new List<int>();
+                    cave.Add(index);
+                    totalCaves.Add(index);
+                    //levelGrid[index] = 2;        //Visited
+                    while (cave.Count > 0)
                     {
-                        Debug.Log(index);
-                        List<int> cave = new List<int>();         //Unconnected caves //Open List
-                        List<int> totalCaves = new List<int>();
-                        cave.Add(index);
-                        totalCaves.Add(index);
-                        levelGrid[index] = 2;        //Visited
-                        while (cave.Count > 0)
+                        int iCurrent = cave[0];
+                        levelGrid[iCurrent] = 2;        //Visited
+
+                        int iCurrIndex = -1;
+
+                        Vector2 p = getCoord(iCurrent, iLevelWidth);
+                        int iX = (int)p.y;
+                        int iY = (int)p.x;
+
+                        //Add Adjacent/Neighbour cells
+                        if (getAdjacent(iX, iY, "right", ref iCurrIndex))
                         {
-                            int iCurrent = cave[0];
-                            levelGrid[iCurrent] = 2;        //Visited
-
-                            int iCurrIndex = -1;
-
-                            Vector2 p = getCoord(iCurrent, iLevelWidth);
-                            int iX = (int)p.y;
-                            int iY = (int)p.x;
-
-                            //Add Adjacent/Neighbour cells
-                            if (getAdjacent(iX, iY, "right", ref iCurrIndex))
+                            if (levelGrid[iCurrIndex] == 0)
                             {
-                                if (levelGrid[iCurrIndex] == 0)
-                                {
-                                    cave.Add(iCurrIndex);
-                                    totalCaves.Add(iCurrIndex);
-                                }
+                                cave.Add(iCurrIndex);
+                                totalCaves.Add(iCurrIndex);
                             }
-                            if (getAdjacent(iX, iY, "up", ref iCurrIndex))
-                            {
-                                if (levelGrid[iCurrIndex] == 0)
-                                {
-                                    cave.Add(iCurrIndex);
-                                    totalCaves.Add(iCurrIndex);
-                                }
-                            }
-                            if (getAdjacent(iX, iY, "down", ref iCurrIndex))
-                            {
-                                if (levelGrid[iCurrIndex] == 0)
-                                {
-                                    cave.Add(iCurrIndex);
-                                    totalCaves.Add(iCurrIndex);
-                                }
-                            }
-                            if (getAdjacent(iX, iY, "left", ref iCurrIndex))
-                            {
-                                if (levelGrid[iCurrIndex] == 0)
-                                {
-                                    cave.Add(iCurrIndex);
-                                    totalCaves.Add(iCurrIndex);
-                                }
-                            }
-                            cave.RemoveAt(0);
                         }
-                        iCaveCounter++;
-                        iCaves.Add(totalCaves); //Add Cave
-                        //Debug.Log("iCave:" + iCaves.Count + " total:" + totalCaves.Count + " start:" + totalCaves[0]);
+                        if (getAdjacent(iX, iY, "up", ref iCurrIndex))
+                        {
+                            if (levelGrid[iCurrIndex] == 0)
+                            {
+                                cave.Add(iCurrIndex);
+                                totalCaves.Add(iCurrIndex);
+                            }
+                        }
+                        if (getAdjacent(iX, iY, "down", ref iCurrIndex))
+                        {
+                            if (levelGrid[iCurrIndex] == 0)
+                            {
+                                cave.Add(iCurrIndex);
+                                totalCaves.Add(iCurrIndex);
+                            }
+                        }
+                        if (getAdjacent(iX, iY, "left", ref iCurrIndex))
+                        {
+                            if (levelGrid[iCurrIndex] == 0)
+                            {
+                                cave.Add(iCurrIndex);
+                                totalCaves.Add(iCurrIndex);
+                            }
+                        }
+                        cave.RemoveAt(0);
                     }
+                    iCaves.Add(totalCaves); //Add Cave
+                }
             }
         }
 
         iNumCaves = iCaves.Count;
-        //Remove largest cave from list
-        if (iCaves.Count > 1)
-        {
-
-            //Get Largest cave
-            int iLargestIndex = 0;
-            int iLargest = -9999;
-            for (int i = 0; i < iCaves.Count; i++)  //Iterate through all caves
-            {
-                if (iCaves[i].Count > iLargest)
-                {
-                    iLargest = iCaves[i].Count;
-                    iLargestIndex = i;
-                }
-            }
-
-            //Debug.Log("Largest:" + iLargest);
-
-            //iCaves.RemoveAt(iLargestIndex);
-
-            ////Fill remaining caves
-            //for (int i = 0; i < iCaves.Count; i++)
-            //{
-            //    for (int j = 0; j < iCaves[i].Count; j++)
-            //    {
-            //        levelGrid[iCaves[i][j]] = 1;    //Turn into wall
-            //    }
-            //}
-        }
     }
 
     bool getAdjacent(int x, int y, string direction, ref int index)
@@ -403,10 +304,15 @@ public class LevelGenerator : MonoBehaviour
         else if (direction == "right") iX += 1;
         else if (direction == "left") iX -= 1;
         
-        int i = getIndex(iX, iY, iLevelWidth);
-        if (isWithinBounds(iX,iY) && levelGrid[i] == 0) {
-            index = i;
-            return true;
+        
+        if (isWithinBounds(iX,iY)) {
+            int i = getIndex(iX, iY, iLevelWidth);
+            if (levelGrid[i] == 0)
+            {
+                index = i;
+                return true;
+            }
+            return false;
         }
         else {
             index = -1;
@@ -482,13 +388,13 @@ public class LevelGenerator : MonoBehaviour
         traversablePositions.Clear();
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
         {
-           if (levelGrid[i] == 2)
+           if (levelGrid[i] == 1 || levelGrid[i] == 2)
             {
                 //Place floor tile
                 placeObject(floorTiles, gridPositions[i]);
                 traversablePositions.Add(gridPositions[i]);
             }
-           else if (levelGrid[i] == 1 || levelGrid[i] == 0)
+           else if (levelGrid[i] == 1)
             {
                 //Place wall tile
                 placeObject(wallTiles, gridPositions[i]);
@@ -551,7 +457,7 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log("Creating Level");
         generateRandGrid(); //Fill grid with random states
         applyCA();          //Apply Cellular automata to the random grid
-        FloodFill2();
+        floodFill();
         buildLevel();       //Create object instances
         placeObjects();     //Place pickups enemies etc
         Debug.Log("Level Created");
