@@ -255,32 +255,44 @@ public class LevelGenerator : MonoBehaviour
                         {
                             if (levelGrid[iCurrIndex] == 0)
                             {
-                                cave.Add(iCurrIndex);
-                                totalCaves.Add(iCurrIndex);
+                                if (!isInList(iCurrIndex, cave))
+                                {
+                                    cave.Add(iCurrIndex);
+                                    totalCaves.Add(iCurrIndex);
+                                }
                             }
                         }
                         if (getAdjacent(iX, iY, "up", ref iCurrIndex))
                         {
                             if (levelGrid[iCurrIndex] == 0)
                             {
-                                cave.Add(iCurrIndex);
-                                totalCaves.Add(iCurrIndex);
+                                if (!isInList(iCurrIndex, cave))
+                                {
+                                    cave.Add(iCurrIndex);
+                                    totalCaves.Add(iCurrIndex);
+                                }
                             }
                         }
                         if (getAdjacent(iX, iY, "down", ref iCurrIndex))
                         {
                             if (levelGrid[iCurrIndex] == 0)
                             {
-                                cave.Add(iCurrIndex);
-                                totalCaves.Add(iCurrIndex);
+                                if (!isInList(iCurrIndex, cave))
+                                {
+                                    cave.Add(iCurrIndex);
+                                    totalCaves.Add(iCurrIndex);
+                                }
                             }
                         }
                         if (getAdjacent(iX, iY, "left", ref iCurrIndex))
                         {
                             if (levelGrid[iCurrIndex] == 0)
                             {
-                                cave.Add(iCurrIndex);
-                                totalCaves.Add(iCurrIndex);
+                                if (!isInList(iCurrIndex, cave))
+                                {
+                                    cave.Add(iCurrIndex);
+                                    totalCaves.Add(iCurrIndex);
+                                }
                             }
                         }
                     }
