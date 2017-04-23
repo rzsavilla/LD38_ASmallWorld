@@ -473,6 +473,11 @@ Prefab:
       propertyPath: tCard
       value: 
       objectReference: {fileID: 419499295}
+    - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: iHookLength
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}
   m_IsPrefabParent: 0

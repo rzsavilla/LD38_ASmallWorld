@@ -13,6 +13,8 @@ public class Hook : MonoBehaviour {
     //Start distance from player. Will need to change if change hook speed
     public float fStartDistance = 0.7f;
 
+    private int iCurrentDistance = 0;
+    private int iMaxDistance = 100;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private RaycastHit2D hit;
@@ -24,8 +26,10 @@ public class Hook : MonoBehaviour {
         rb2D = GetComponent<Rigidbody2D>();
     }
 
-    public bool Attack(Player player, Vector2 direction)
+    public bool Attack(Player player, Vector2 direction, int hookLength)
     {
+        iCurrentDistance = 0;
+        iMaxDistance = hookLength;
         this.player = player;
         vDirection = direction;
         transform.position += new Vector3(direction.x, direction.y) * fStartDistance;
@@ -61,6 +65,11 @@ public class Hook : MonoBehaviour {
             {
                 rb2D.MovePosition(end);
                 transform.position = end;
+                iCurrentDistance++;
+                if (iCurrentDistance >= iMaxDistance)
+                {
+                    Return();
+                }
                 end += new Vector3(vDirection.x, vDirection.y) * Time.deltaTime;
                 for (int i = 1; i < iSpeed; i++)
                 {
@@ -72,6 +81,11 @@ public class Hook : MonoBehaviour {
                     {
                         rb2D.MovePosition(end);
                         transform.position = end;
+                        iCurrentDistance++;
+                        if (iCurrentDistance >= iMaxDistance)
+                        {
+                            Return();
+                        }
                         end += new Vector3(vDirection.x, vDirection.y) * Time.deltaTime;
                     }
                     else

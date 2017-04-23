@@ -15,6 +15,7 @@ public class Player : Movable {
     public int iSkipMove = 0;
     public int iAttackCooldown = 0;
     public int iMaxAttackCooldown = 20;
+    public int iHookLength = 200;
     public GameObject hook;
 
     private Animator animator;
@@ -354,7 +355,7 @@ public class Player : Movable {
         {
             hook = Instantiate(hook, transform.position, Quaternion.identity);
             hook.SetActive(true);
-            if (hook.GetComponent<Hook>().Attack(this, vDirection))
+            if (hook.GetComponent<Hook>().Attack(this, vDirection, iHookLength))
             {
                 iAttackCooldown = iMaxAttackCooldown;
                 bHookUse = true;
