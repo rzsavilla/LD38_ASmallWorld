@@ -177,9 +177,6 @@ public class Hook : MonoBehaviour {
 
     public void Return()
     {
-        if (iTarget == 1)
-        {
-            iTarget = 0;
-        }
+        iTarget = 0;
     }
 }

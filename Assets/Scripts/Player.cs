@@ -197,6 +197,8 @@ public class Player : Movable {
         PushBack();
 
         iSkipMove = iSkipAmount;
+
+        ReturnHook();
     }
 
     //Function for being pushed back when walking into an enemy

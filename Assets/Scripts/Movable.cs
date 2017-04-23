@@ -61,12 +61,36 @@ public abstract class Movable : MonoBehaviour {
     {
         Vector3 end = transform.position + (new Vector3(xDir, yDir) * Time.deltaTime * speed);
 
+        boxCollider.enabled = false;
+        hit = Physics2D.Linecast(transform.position, end, blockingLayer);
+        boxCollider.enabled = true;
+
+        if (hit.transform != null)
+        {
+            if (hit.transform.gameObject.tag == "Wall")
+            {
+                return false;
+            }
+        }
+
         rb2D.MovePosition(end);
         transform.position = end;
 
         for (int i = 1; i < iSpeed; i++)
         {
             end = transform.position + (new Vector3(xDir, yDir) * Time.deltaTime * speed);
+
+            boxCollider.enabled = false;
+            hit = Physics2D.Linecast(transform.position, end, blockingLayer);
+            boxCollider.enabled = true;
+
+            if (hit.transform != null)
+            {
+                if (hit.transform.gameObject.tag == "Wall")
+                {
+                    return false;
+                }
+            }
 
             rb2D.MovePosition(end);
             transform.position = end;
