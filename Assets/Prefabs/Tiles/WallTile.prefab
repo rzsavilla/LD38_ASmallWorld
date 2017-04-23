@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4935181640068610}
   - component: {fileID: 61373123172778016}
   - component: {fileID: 212518152692500992}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 1
+  m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
