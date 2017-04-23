@@ -30,6 +30,8 @@ public class LevelGenerator : MonoBehaviour
     private Transform levelHolder;  //!< Level Position
     private List<Vector3> gridPositions = new List<Vector3>();   //!< List of active positions on the level
 
+    private List<GameObject> objectsHandle = new List<GameObject>();
+
     private List<Vector3> traversablePositions = new List<Vector3>();    //!< List of traversable positions
 
     public List<int> levelGrid = new List<int>();
@@ -166,19 +168,33 @@ public class LevelGenerator : MonoBehaviour
     void placeObject(GameObject[] objectArray,Vector3 position)
     {
         //Place Random game object from within array -- provides variation --
-        //if (objectArray.Length > 0)
-        //{
-            int iRandIndex = Random.Range(0, objectArray.Length - 1);
+        if (objectArray.Length > 1)
+        {
+            int iRandIndex = Random.Range(0, objectArray.Length);
             GameObject objectChoice = objectArray[iRandIndex];
             if (objectChoice != null)
             {
-                Instantiate(objectChoice, position, Quaternion.identity);
+                objectsHandle.Add(Instantiate(objectChoice, position, Quaternion.identity));
             }
-        //}
+        }
+        else if (objectArray.Length > 0)
+        {
+            GameObject objectChoice = objectArray[0];
+            if (objectChoice != null)
+            {
+                objectsHandle.Add(Instantiate(objectChoice, position, Quaternion.identity));
+            }
+        }
     }
 
     void buildLevel()
     {
+        //Destroy created objects in the scene
+        for (int i = 0; i < objectsHandle.Count - 1; i++)
+        {
+            Destroy(objectsHandle[i]);
+        }
+
         traversablePositions.Clear();
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
         {
@@ -211,11 +227,11 @@ public class LevelGenerator : MonoBehaviour
     {
         if (hasTraversable())
         {
-            int i = Random.Range(0, traversablePositions.Count);
+            int i = Random.Range(0, traversablePositions.Count - 1);
             traversablePositions.RemoveRange(i, 1);  //Remove position - so no other object can be placed there 
             return traversablePositions[i];
         }
-        else return new Vector3(-1f, -1f, 0f);
+        else return new Vector3(-1f, 0f, 0f);
     }
 
     //! Return player start position
