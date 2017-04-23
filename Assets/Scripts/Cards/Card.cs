@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour {
+public class Card {
 
     public int iRarity;
     public Immediate cardImmediate;
     public bool bSet;
 
-	void Awake () {
-		
-	}
+	public Card EmptyCard()
+    {
+        iRarity = 0;
+        bSet = false;
+        return this;
+    }
 	
     //Destroy the selected card, returning a bool if done or failed
 	public bool DestroyCard()
@@ -35,6 +38,7 @@ public class Card : MonoBehaviour {
             return false;
         }
 
+        iRarity = cardImmediate.GenerateEffect();
         return true;
     }
 }

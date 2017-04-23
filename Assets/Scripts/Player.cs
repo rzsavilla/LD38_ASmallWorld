@@ -7,15 +7,16 @@ using UnityEngine.UI;
 public class Player : Movable {
 
     public float restartLevelDelay = 1f;
-
     public float pushBack = 10f;
     public Text tHP;
     public Text tScore;
+    public int iCurrentCard;
 
     private Animator animator;
     private int iHP;
     private int iScore;
     private Vector2 vDirection;
+    private List<Card> cards;
 
     //Score values for pickups
     private int iPickup1 = 5;
@@ -26,6 +27,8 @@ public class Player : Movable {
     protected override void Start ()
     {
         animator = GetComponent<Animator>();
+        cards = GameManager.instance.GetCards();
+        iCurrentCard = GameManager.instance.iCurrentCard;
         iHP = GameManager.instance.iPlayerHP;
         iScore = GameManager.instance.iScore;
 
@@ -39,29 +42,14 @@ public class Player : Movable {
     {
         GameManager.instance.iPlayerHP = iHP;
         GameManager.instance.iScore = iScore;
+        GameManager.instance.SetCards(cards);
+        GameManager.instance.iCurrentCard = iCurrentCard;
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
 
-        int horizontal = 0;
-        int vertical = 0;
-
-        horizontal = (int)Input.GetAxisRaw("Horizontal");
-        vertical = (int)Input.GetAxisRaw("Vertical");
-
-        //Will make it only move in 4 way not 8 way
-        /*if (horizontal != 0)
-        {
-            vertical = 0;
-        }*/
-
-        AnimCheck(horizontal, vertical);
-
-        if (horizontal != 0 || vertical != 0)
-        {
-            AttemptMove<Wall>(horizontal, vertical);
-        }
     }
 
     //Check the animations for movement, setting the correct one based on inputs
@@ -169,10 +157,6 @@ public class Player : Movable {
         {
             transform.position += (new Vector3(newDirection.x, newDirection.y));
         }
-        else
-        {
-
-        }
     }
 
     //Function for being pushed back from the enemy code
@@ -189,10 +173,6 @@ public class Player : Movable {
         if (hit.transform == null)
         {
             transform.position += (new Vector3(newDirection.x, newDirection.y));
-        }
-        else
-        {
-            
         }
     }
 
@@ -217,6 +197,92 @@ public class Player : Movable {
             //SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
             DestroyObject(this);
+        }
+    }
+
+    //////////
+    //INPUTS//
+    //////////
+
+    //Movement of the player
+    public void Movement(bool keyCodeW, bool keyCodeA, bool keyCodeS, bool keyCodeD)
+    {
+        int horizontal = 0;
+        int vertical = 0;
+
+        //Old movement method, also using arrows keys
+        //horizontal = (int)Input.GetAxisRaw("Horizontal");
+        //vertical = (int)Input.GetAxisRaw("Vertical");
+
+        if (keyCodeW)
+        {
+            vertical = 1;
+            if (keyCodeS)
+            {
+                vertical = 0;
+            }
+        }
+        else if (keyCodeS)
+        {
+            vertical = -1;
+        }
+        if (keyCodeD)
+        {
+            horizontal = 1;
+            if (keyCodeA)
+            {
+                horizontal = 0;
+            }
+        }
+        else if (keyCodeA)
+        {
+            horizontal = -1;
+        }
+
+        //Will make it only move in 4 way not 8 way
+        //if (horizontal != 0)
+        //{
+        //    vertical = 0;
+        //}
+
+        AnimCheck(horizontal, vertical);
+
+        if (horizontal != 0 || vertical != 0)
+        {
+            AttemptMove<Wall>(horizontal, vertical);
+        }
+    }
+
+    //Switch the currently selected card
+    public void SwitchCard(KeyCode keyCode)
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            iCurrentCard--;
+            if (iCurrentCard <= 0)
+            {
+                iCurrentCard = GameManager.instance.iNumCards;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            iCurrentCard++;
+            if (iCurrentCard > GameManager.instance.iNumCards)
+            {
+                iCurrentCard = 1;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            iCurrentCard = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            iCurrentCard = 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            iCurrentCard = 3;
         }
     }
 }

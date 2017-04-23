@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
 
     public int iPlayerHP = 10;
     public int iScore = 0;
+    public int iNumEffects = 3;
+    public int iNumCards = 3;
+    private List<Card> cards;
+    public int iCurrentCard;
 
     private Text levelText;
     private int iLevel = 0;
@@ -26,7 +30,18 @@ public class GameManager : MonoBehaviour
     void Awake () {
         if (instance == null)
         {
+            //1st time setup, only played at beginning of game
             instance = this;
+
+            iCurrentCard = 1;
+
+            cards = new List<Card>();
+            //Generate an empty hand of cards
+            for (int i = 0; i < iNumCards; i++)
+            {
+                Card newCard = new Card();
+                cards.Add(newCard.EmptyCard());
+            }
         }
         else if (instance != null)
         {
@@ -37,6 +52,16 @@ public class GameManager : MonoBehaviour
         enemies = new List<Enemy>();
 
         levelGenerator = GetComponent<LevelGenerator>();
+    }
+
+    public List<Card> GetCards()
+    {
+        return cards;
+    }
+
+    public void SetCards(List<Card> newCards)
+    {
+        cards = newCards;
     }
 
     //This is called each time a scene is loaded.
@@ -117,13 +142,47 @@ public class GameManager : MonoBehaviour
             activeCamera.transform.position = newPos;
         }
 
-
         //Reload Level
-        if (Input.GetKeyDown("space"))
+        //Will be removed when done
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             InitGame();
         }
-	}
+
+        //Input manager. Keys are checked here, and the desired effect, or the desired
+        //effect in another class is called
+
+        //Movement (Only with WASD)
+        player.Movement(
+                Input.GetKey(KeyCode.W),
+                Input.GetKey(KeyCode.A),
+                Input.GetKey(KeyCode.S),
+                Input.GetKey(KeyCode.D));
+
+        //Switching Cards (with Q and E)
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            player.SwitchCard(KeyCode.Q);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.SwitchCard(KeyCode.E);
+        }
+
+        //Switching Cards (with numbers)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            player.SwitchCard(KeyCode.Alpha1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            player.SwitchCard(KeyCode.Alpha2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            player.SwitchCard(KeyCode.Alpha3);
+        }
+    }
 
     public void AddEnemyToList(Enemy script)
     {
