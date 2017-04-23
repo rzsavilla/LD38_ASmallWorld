@@ -8,13 +8,13 @@ public class Player : Movable {
 
     public float restartLevelDelay = 1f;
 
+    public float pushBack = 10f;
     public Text tHP;
     public Text tScore;
 
     private Animator animator;
     private int iHP;
     private int iScore;
-    private Vector3 vLastPosition;
     private Vector2 vDirection;
 
     //Score values for pickups
@@ -60,7 +60,7 @@ public class Player : Movable {
 
         if (horizontal != 0 || vertical != 0)
         {
-            AttemptMove<Enemy>(horizontal, vertical);
+            AttemptMove<Wall>(horizontal, vertical);
         }
     }
 
@@ -105,11 +105,9 @@ public class Player : Movable {
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
         vDirection = new Vector2(xDir, yDir);
-        vLastPosition = transform.position;
         base.AttemptMove<T>(xDir, yDir);
-
-        RaycastHit2D hit;
-        if (Move(xDir, yDir, out hit))
+        
+        if (Move(xDir, yDir))
         {
             //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
         }
@@ -149,7 +147,7 @@ public class Player : Movable {
 
     protected override void OnCantMove<T>(T component)
     {
-        //PushBack();
+        PushBack();
 
         /*Wall hitWall = component as Wall;
         hitWall.DamageWall(wallDamage);
@@ -159,13 +157,43 @@ public class Player : Movable {
     //Function for being pushed back when walking into an enemy
     public void PushBack()
     {
-        transform.position = vLastPosition - (new Vector3(vDirection.x, vDirection.y) * Time.deltaTime * pushBack);
+        Vector2 position = transform.position;
+        Vector2 newDirection = new Vector2(-vDirection.x, -vDirection.y) * Time.deltaTime * pushBack;
+
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider.enabled = false;
+        RaycastHit2D hit = Physics2D.Linecast(position, position + newDirection, blockingLayer);
+        boxCollider.enabled = true;
+
+        if (hit.transform == null)
+        {
+            transform.position += (new Vector3(newDirection.x, newDirection.y));
+        }
+        else
+        {
+
+        }
     }
 
     //Function for being pushed back from the enemy code
     public void PushBack(Vector2 direction)
     {
-        transform.position += (new Vector3(direction.x, direction.y) * Time.deltaTime * pushBack);
+        Vector2 position = transform.position;
+        Vector2 newDirection = new Vector2(direction.x, direction.y) * Time.deltaTime * pushBack;
+
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider.enabled = false;
+        RaycastHit2D hit = Physics2D.Linecast(position, position + newDirection, blockingLayer);
+        boxCollider.enabled = true;
+
+        if (hit.transform == null)
+        {
+            transform.position += (new Vector3(newDirection.x, newDirection.y));
+        }
+        else
+        {
+            
+        }
     }
 
     private void Restart()

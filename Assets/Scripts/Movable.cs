@@ -4,60 +4,65 @@ using UnityEngine;
 
 public abstract class Movable : MonoBehaviour {
 
-    public float pushBack = 10f;
-    public float moveTime = 0.5f;
+    public int iSpeed = 5;
     public LayerMask blockingLayer;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
-    private float inverseMoveTime;
 
     private Vector2 prevPos;
+    private RaycastHit2D hit;
 
     // Use this for initialization
     protected virtual void Start () {
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
-        inverseMoveTime = 1f / moveTime;
     }
 	
-	protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
+	protected bool Move(int xDir, int yDir)
     {
-        Vector2 start = transform.position;
-        Vector2 end = start + (new Vector2(xDir, yDir) * Time.deltaTime);
+        Vector2 position = transform.position;
+        Vector2 direction = new Vector2(xDir, yDir) * Time.deltaTime;
 
         boxCollider.enabled = false;
-        hit = Physics2D.Linecast(start, end, blockingLayer);
+        hit = Physics2D.Linecast(position, position + direction, blockingLayer);
         boxCollider.enabled = true;
-
         if (hit.transform == null)
         {
-            SmoothMovement(end);
+            rb2D.MovePosition(position + direction);
+            transform.position = position + direction;
+            position = transform.position;
+            for (int i = 1; i < iSpeed; i++)
+            {
+                boxCollider.enabled = false;
+                hit = Physics2D.Linecast(position, position + direction, blockingLayer);
+                boxCollider.enabled = true;
+
+                if (hit.transform == null)
+                {
+                    rb2D.MovePosition(position + direction);
+                    transform.position = position + direction;
+                    position = transform.position;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             return true;
         }
         else
         {
-            //Rozen trying to fix wall collisions, causes the push
-            //back from enemy to fail
-            transform.position = start;
+            return false;
         }
-
-        return false;
-    }
-
-    protected void SmoothMovement(Vector3 end)
-    {
-        Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
-        rb2D.MovePosition(newPosition);
     }
 
     protected virtual void AttemptMove<T>(int xDir, int yDir)
         where T:Component
     {
-        RaycastHit2D hit;
-        bool canMove = Move(xDir, yDir, out hit);
+        bool canMove = Move(xDir, yDir);
 
-        if (hit.transform == null)
+        if (canMove)
             return;
 
         T hitComponent = hit.transform.GetComponent<T>();

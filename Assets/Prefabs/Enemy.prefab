@@ -117,8 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396d8b97c8219864f95ccfc1a221f67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushBack: 10
-  moveTime: 0.5
+  iSpeed: 5
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
