@@ -116,6 +116,13 @@ public class GameManager : MonoBehaviour
             newPos.z = activeCamera.transform.position.z;
             activeCamera.transform.position = newPos;
         }
+
+
+        //Reload Level
+        if (Input.GetKeyDown("space"))
+        {
+            InitGame();
+        }
 	}
 
     public void AddEnemyToList(Enemy script)
