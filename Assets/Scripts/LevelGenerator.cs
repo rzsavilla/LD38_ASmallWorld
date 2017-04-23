@@ -302,6 +302,33 @@ public class LevelGenerator : MonoBehaviour
         }
 
         iNumCaves = iCaves.Count;
+
+        //iLargestCave = -999;
+        //int iLargestIndex = -1;
+        ////--Get Largest Cave--//
+        //for (int i = 0; i < iCaves.Count; i++)
+        //{
+        //    for (int j = 0; j <iCaves[j].Count; j++)
+        //    {
+        //        if (iCaves[i][j] > iLargestCave)
+        //        {
+        //            iLargestIndex = i;
+        //            iLargestCave = iCaves[i][j];
+        //        }
+        //    }
+        //}
+
+        ////Fill in smaller caves
+        //for (int i = 0; i < iCaves.Count; i++)
+        //{
+        //    if (i != iLargestIndex)
+        //    {
+        //        for (int j = 0; j < iCaves[i].Count; j++)
+        //        {
+        //            levelGrid[iCaves[i][j]] = 1;      //Turn into wall
+        //        }
+        //    }
+        //}
     }
 
     bool getAdjacent(int x, int y, string direction, ref int index)
