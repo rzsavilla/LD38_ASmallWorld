@@ -10,6 +10,8 @@ public class Hook : MonoBehaviour {
     public Vector2 vDirection;
     public int iSpeed = 10;
     public int iPushBack = 20;
+    //Start distance from player. Will need to change if change hook speed
+    public float fStartDistance = 0.7f;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
@@ -26,7 +28,7 @@ public class Hook : MonoBehaviour {
     {
         this.player = player;
         vDirection = direction;
-        transform.position += new Vector3(direction.x, direction.y) * 0.7f;
+        transform.position += new Vector3(direction.x, direction.y) * fStartDistance;
         bTarget = true;
 
         boxCollider = GetComponent<BoxCollider2D>();
@@ -75,6 +77,10 @@ public class Hook : MonoBehaviour {
                     else
                     {
                         bTarget = false;
+                        if (hit.transform.gameObject.tag == "Enemy")
+                        {
+                            hit.transform.gameObject.GetComponent<Enemy>().PushBack(vDirection);
+                        }
                         break;
                     }
                 }
@@ -82,6 +88,10 @@ public class Hook : MonoBehaviour {
             else
             {
                 bTarget = false;
+                if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    hit.transform.gameObject.GetComponent<Enemy>().PushBack(vDirection);
+                }
             }
         }
         else

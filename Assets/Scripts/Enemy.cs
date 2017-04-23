@@ -8,6 +8,7 @@ public class Enemy : Movable {
     public int iSkipHit = 20;
     public int iSkipAmount = 5;
     public int iSkipMove = 5;
+    public int pushBack = 10;
     public float fFollowTollerance = 0.25f;
 
     private Animator animator;
@@ -111,5 +112,24 @@ public class Enemy : Movable {
         hitPlayer.LoseHP(iDamage);
 
         //SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
+    }
+
+    //Function for being pushed back from the enemy code
+    public void PushBack(Vector2 direction)
+    {
+        Vector2 position = transform.position;
+        Vector2 newDirection = new Vector2(direction.x, direction.y) * Time.deltaTime * pushBack;
+
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider.enabled = false;
+        RaycastHit2D hit = Physics2D.Linecast(position, position + newDirection, blockingLayer);
+        boxCollider.enabled = true;
+
+        if (hit.transform == null)
+        {
+            transform.position += (new Vector3(newDirection.x, newDirection.y));
+
+            iSkipMove = iSkipHit;
+        }
     }
 }
