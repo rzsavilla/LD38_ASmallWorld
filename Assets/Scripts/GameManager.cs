@@ -134,15 +134,7 @@ public class GameManager : MonoBehaviour
                 enemies[i].MoveEnemy();
             }
         }
-
-        //Update camera to follow player
-        if (player != null && activeCamera != null)
-        {
-            Vector3 newPos = player.transform.position;
-            newPos.z = activeCamera.transform.position.z;
-            activeCamera.transform.position = newPos;
-        }
-
+        
         ////////////////////
         //Input manager. Keys are checked here, and the desired effect, or the desired
         //effect in another class is called
@@ -194,6 +186,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        UpdateCamera();
+
         //Reload Level
         //Will be removed when done
         if (Input.GetKeyDown(KeyCode.Space))
@@ -205,5 +199,17 @@ public class GameManager : MonoBehaviour
     public void AddEnemyToList(Enemy script)
     {
         enemies.Add(script);
+    }
+
+    private void UpdateCamera()
+    {
+        //Update camera to follow player
+        //Must be done AFTER player moves
+        if (player != null && activeCamera != null)
+        {
+            Vector3 newPos = player.transform.position;
+            newPos.z = activeCamera.transform.position.z;
+            activeCamera.transform.position = newPos;
+        }
     }
 }

@@ -121,7 +121,7 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  iDamage: 1
+  iDamage: 5
   iSkipHit: 20
   iSkipAmount: 5
   iSkipMove: 5

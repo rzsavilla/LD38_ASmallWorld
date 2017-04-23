@@ -12,6 +12,7 @@ public class Player : Movable {
     public Text tScore;
     public Text tCard;
     public int iCurrentCard;
+    public int iSkipMove = 0;
 
     private Animator animator;
     private int iHP;
@@ -59,7 +60,10 @@ public class Player : Movable {
     // Update is called once per frame
     void Update ()
     {
-
+        if (iSkipMove > 0)
+        {
+            iSkipMove--;
+        }
     }
 
     //Check the animations for movement, setting the correct one based on inputs
@@ -104,11 +108,6 @@ public class Player : Movable {
     {
         vDirection = new Vector2(xDir, yDir);
         base.AttemptMove<T>(xDir, yDir);
-        
-        if (Move(xDir, yDir))
-        {
-            //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
-        }
 
         //CheckIfGameOver();
     }
@@ -159,9 +158,7 @@ public class Player : Movable {
     {
         PushBack();
 
-        /*Wall hitWall = component as Wall;
-        hitWall.DamageWall(wallDamage);
-        animator.SetTrigger("playerChop");*/
+        iSkipMove = 25;
     }
 
     //Function for being pushed back when walking into an enemy
@@ -218,7 +215,7 @@ public class Player : Movable {
             //SoundManager.instance.PlaySingle(gameoverSound);
             //SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
-            DestroyObject(this);
+            //DestroyObject(this);
         }
     }
 
@@ -271,6 +268,13 @@ public class Player : Movable {
         else if (keyCodeA)
         {
             horizontal = -1;
+        }
+
+        //Stun from walking into wall
+        if (iSkipMove > 0)
+        {
+            horizontal = 0;
+            vertical = 0;
         }
 
         //Will make it only move in 4 way not 8 way
