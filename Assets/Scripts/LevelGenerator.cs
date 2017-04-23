@@ -170,7 +170,7 @@ public class LevelGenerator : MonoBehaviour
         //Place Random game object from within array -- provides variation --
         if (objectArray.Length > 1)
         {
-            int iRandIndex = Random.Range(0, objectArray.Length);
+            int iRandIndex = Random.Range(0, objectArray.Length - 1);
             GameObject objectChoice = objectArray[iRandIndex];
             if (objectChoice != null)
             {
@@ -185,15 +185,17 @@ public class LevelGenerator : MonoBehaviour
                 objectsHandle.Add(Instantiate(objectChoice, position, Quaternion.identity));
             }
         }
+        else { }
     }
 
     void buildLevel()
     {
         //Destroy created objects in the scene
-        for (int i = 0; i < objectsHandle.Count - 1; i++)
+        for (int i = 0; i < objectsHandle.Count; i++)
         {
             Destroy(objectsHandle[i]);
         }
+        objectsHandle.Clear();
 
         traversablePositions.Clear();
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
