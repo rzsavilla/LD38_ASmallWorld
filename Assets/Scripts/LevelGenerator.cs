@@ -82,7 +82,6 @@ public class LevelGenerator : MonoBehaviour
                 iState = 1; //Rock
             }
             levelGrid.Add(iState);  //!< States floor (0) space and solid (1)
-            //Debug.Log("State:" + iState);
         }
     }
 
@@ -128,7 +127,6 @@ public class LevelGenerator : MonoBehaviour
 
     void applyCA()
     {
-        //Debug.Log("Applying CA");
         int gridSize = (iLevelWidth * iLevelHeight) - 1;
 
         for (int iCounter = 0; iCounter < iCAIterations; iCounter++)
@@ -234,7 +232,6 @@ public class LevelGenerator : MonoBehaviour
                 int index = getIndex(x, y, iLevelWidth);
                 if (levelGrid[index] == 0)  //Unvisited
                 {
-                    Debug.Log(index);
                     List<int> cave = new List<int>();         //Unconnected caves //Open List
                     List<int> totalCaves = new List<int>();
                     cave.Add(index);
@@ -244,6 +241,8 @@ public class LevelGenerator : MonoBehaviour
                     {
                         int iCurrent = cave[0];
                         levelGrid[iCurrent] = 2;        //Visited
+                        Debug.Log(iCurrent);
+                        cave.RemoveAt(0);
 
                         int iCurrIndex = -1;
 
@@ -284,7 +283,6 @@ public class LevelGenerator : MonoBehaviour
                                 totalCaves.Add(iCurrIndex);
                             }
                         }
-                        cave.RemoveAt(0);
                     }
                     iCaves.Add(totalCaves); //Add Cave
                 }
@@ -307,7 +305,7 @@ public class LevelGenerator : MonoBehaviour
         
         if (isWithinBounds(iX,iY)) {
             int i = getIndex(iX, iY, iLevelWidth);
-            if (levelGrid[i] == 0)
+            if (levelGrid[i] == 0)  //Unvisited cell
             {
                 index = i;
                 return true;
@@ -388,7 +386,7 @@ public class LevelGenerator : MonoBehaviour
         traversablePositions.Clear();
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
         {
-           if (levelGrid[i] == 1 || levelGrid[i] == 2)
+           if (levelGrid[i] == 2)
             {
                 //Place floor tile
                 placeObject(floorTiles, gridPositions[i]);
@@ -454,12 +452,10 @@ public class LevelGenerator : MonoBehaviour
 
     public void SetupLevel()
     {
-        Debug.Log("Creating Level");
         generateRandGrid(); //Fill grid with random states
         applyCA();          //Apply Cellular automata to the random grid
         floodFill();
         buildLevel();       //Create object instances
         placeObjects();     //Place pickups enemies etc
-        Debug.Log("Level Created");
     }
 }
