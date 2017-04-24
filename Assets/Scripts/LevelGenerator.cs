@@ -325,7 +325,6 @@ public class LevelGenerator : MonoBehaviour
         {
             //Check minumum traversable
             int iMinTraversable = (int)(levelGrid.Count * 0.1);
-            Debug.Log(iMinTraversable);
             if (iCaves[iLargestIndex].Count > iMinTraversable)
             {
                 //Fill in smaller caves
@@ -405,11 +404,6 @@ public class LevelGenerator : MonoBehaviour
             if (integer == list[i]) return true;
         }
         return false;
-    }
-
-    void fillSmallCaves()
-    {
-
     }
 
     void placeObject(GameObject[] objectArray,Vector3 position)
