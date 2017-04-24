@@ -190,22 +190,22 @@ Prefab:
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iLevelWidth
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iLevelHeight
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iPickupCount
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iEnemyCount
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
@@ -479,6 +479,11 @@ Prefab:
         type: 2}
       propertyPath: pushBack
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
+        type: 2}
+      propertyPath: iHookLength
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}

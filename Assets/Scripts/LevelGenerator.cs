@@ -12,6 +12,9 @@ public class LevelGenerator : MonoBehaviour
     public int iPickupCount = 1;
     public int iEnemyCount = 1;
 
+    public int iMaxPickup = 50;
+    public int iMaxEnemy = 50;
+
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] pickups;
@@ -525,6 +528,16 @@ public class LevelGenerator : MonoBehaviour
         for (int i = 0; i < iPickupCount; i++)
         {
             placeObject(pickups, getRandomTraversable());
+        }
+
+        //Increase pickup and enemy spawned after every level
+        if (iPickupCount < iMaxPickup)
+        {
+            iPickupCount++;
+        }
+        if (iEnemyCount < iMaxEnemy)
+        {
+            iEnemyCount++;
         }
     }
 
