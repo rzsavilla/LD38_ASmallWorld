@@ -53,14 +53,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iLevelWidth: 25
   iLevelHeight: 25
+  iPickupCount: 1
+  iEnemyCount: 1
   floorTiles:
   - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
   wallTiles:
-  - {fileID: 1837627263825708, guid: 73b599b904a5c8c4cbb770dfee701a30, type: 2}
-  collectables: []
+  - {fileID: 1492800951930014, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
+  pickups: []
   enemies: []
+  objectsHandle: []
+  enemyHandle: []
   levelGrid: 
   fRockPercent: 25
   iCAIterations: 0
   iRockDefinition: 0
   iMooreNeighbouhood: 0
+  iVisited: 
+  iLargestCave: 0
+  iNumCaves: 0
