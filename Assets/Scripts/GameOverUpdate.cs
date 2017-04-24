@@ -7,8 +7,8 @@ public class GameOverUpdate : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
         Text score = GameObject.Find("Score").GetComponent<Text>();
-        score.text = GameStats.Score.ToString();
+        Debug.Log("Score:" + PlayerPrefs.GetInt("Score"));
+        score.text = PlayerPrefs.GetInt("Score").ToString();
     }
 }

@@ -306,6 +306,8 @@ public class Player : Movable {
         {
             //SoundManager.instance.PlaySingle(gameoverSound);
             //SoundManager.instance.musicSource.Stop();
+            PlayerPrefs.SetInt("Score", iScore);
+            SceneManager.LoadScene("GameOver");
             GameManager.instance.GameOver();
         }
     }
