@@ -54,7 +54,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelGenerator: {fileID: 0}
   iPlayerHP: 10
+  iPlayerMaxHP: 100
   iScore: 0
+  iNumEffects: 3
+  iNumCards: 3
+  iHookDamage: 2
+  iCurrentCard: 0
 --- !u!114 &114939052714971216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,8 +85,13 @@ MonoBehaviour:
   - {fileID: 1357311501237714, guid: c8abbd3497750d842b46132dca21482c, type: 2}
   enemies:
   - {fileID: 1492800951930014, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
+  objectsHandle: []
+  enemyHandle: []
   levelGrid: 
   fRockPercent: 50
   iCAIterations: 1
   iRockDefinition: 3
   iMooreNeighbouhood: 1
+  iVisited: 
+  iLargestCave: 0
+  iNumCaves: 0

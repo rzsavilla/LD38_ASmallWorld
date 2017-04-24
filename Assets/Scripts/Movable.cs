@@ -149,6 +149,25 @@ public abstract class Movable : MonoBehaviour {
             OnCantMove(hitComponent);
     }
 
+    protected virtual void AttemptMove<T, S>(int xDir, int yDir)
+        where T : Component
+        where S : Component
+    {
+        bool canMove = Move(xDir, yDir);
+
+        if (canMove)
+            return;
+
+        T hitComponent = hit.transform.GetComponent<T>();
+        S hitComponent2 = hit.transform.GetComponent<S>();
+
+        if (!canMove && hitComponent != null)
+            OnCantMove(hitComponent);
+        else if (!canMove && hitComponent2 != null)
+            OnCantMove(hitComponent2);
+
+    }
+
     protected virtual void AttemptMove<T>(float xDir, float yDir, float speed)
         where T : Component
     {

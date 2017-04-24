@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Movable
-{
+public class Enemy : Movable {
 
     public int iHP = 10;
     public int iDamage = 5;
@@ -19,7 +18,7 @@ public class Enemy : Movable
     private Vector2 vDirection;
 
     // Use this for initialization
-    protected override void Start()
+    protected override void Start ()
     {
         GameManager.instance.AddEnemyToList(this);
         animator = GetComponent<Animator>();
@@ -32,7 +31,7 @@ public class Enemy : Movable
     {
         vDirection = new Vector2(xDir, yDir);
         ResetSkipMove();
-        base.AttemptMove<Player>(xDir, yDir);
+        base.AttemptMove<T>(xDir, yDir);
     }
 
     public void ResetSkipMove()
@@ -103,7 +102,7 @@ public class Enemy : Movable
     }
 
     protected override void OnCantMove<T>(T component)
-    {
+    {        
         Player hitPlayer = component as Player;
 
         if (hitPlayer.iState == 0)
