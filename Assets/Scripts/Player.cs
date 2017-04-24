@@ -86,8 +86,8 @@ public class Player : Movable {
         if (!bHookUse)
         {
             Vector3[] linePositions = new Vector3[2];
-            linePositions[0] = this.transform.position;         //Start position
-            linePositions[1] = this.transform.position;         //End
+            linePositions[0] = transform.position;         //Start position
+            linePositions[1] = transform.position;         //End
             linePositions[0].z = 1;
             linePositions[1].z = 1;
             chainRender.SetPositions(linePositions);
@@ -101,17 +101,13 @@ public class Player : Movable {
             if (chainRender != null)
             {
                 Vector3[] linePositions = new Vector3[2];
-                linePositions[0] = this.transform.position;         //Start position
+                linePositions[0] = transform.position;         //Start position
                 linePositions[1] = hooks[hooks.Count - 1].GetComponent<Hook>().transform.position;     //End Position
                 chainRender.SetPositions(linePositions);
-                chainRender.sortingLayerName = "Items";
+                //Chain in front of player
+                if (chainRender != null) chainRender.sortingLayerName = "Units";
+                if (chainRender != null) chainRender.sortingOrder = 999;
             }
-            animator.SetBool("playerAttack", true);
-            animator.SetBool("playerUp", false);
-            animator.SetBool("playerDown", false);
-            animator.SetBool("playerLeft", false);
-            animator.SetBool("playerRight", false);
-            animator.SetBool("playerIdle", false);
         }
         if (hooks.Count > 0)
         {
@@ -129,8 +125,6 @@ public class Player : Movable {
     //Check the animations for movement, setting the correct one based on inputs
     void AnimCheck(int xDir, int yDir)
     {
-        //Chain is behind player
-        if (chainRender != null) chainRender.sortingLayerName = "Items";
         if (xDir == 1)
         {
             animator.SetBool("playerRight", true);
@@ -157,11 +151,6 @@ public class Player : Movable {
             if (yDir == -1)
             {
                 animator.SetBool("playerDown", true);
-                animator.SetBool("playerLeft", false);
-                animator.SetBool("playerRight", false);
-                //Chain in front of player
-                if (chainRender != null) chainRender.sortingLayerName = "Units";
-                if (chainRender != null) chainRender.sortingOrder = 999;
             }
             else
             {
@@ -176,6 +165,17 @@ public class Player : Movable {
         vDirection = new Vector2(xDir, yDir);
         base.AttemptMove<T>(xDir, yDir);
 
+        if (bHookUse)
+        {
+            chainRender.SetPosition(0, transform.position);
+        }
+        else
+        {
+            Vector3 position = transform.position;
+            position.z = 1;
+            chainRender.SetPosition(0, position);
+            chainRender.SetPosition(1, position);
+        }
         //CheckIfGameOver();
     }
 
@@ -184,6 +184,18 @@ public class Player : Movable {
     {
         vDirection = new Vector2(xDir, yDir);
         base.AttemptMove<T>(xDir, yDir, speed);
+
+        if (bHookUse)
+        {
+            chainRender.SetPosition(0, transform.position);
+        }
+        else
+        {
+            Vector3 position = transform.position;
+            position.z = 1;
+            chainRender.SetPosition(0, position);
+            chainRender.SetPosition(1, position);
+        }
 
         //CheckIfGameOver();
     }
@@ -437,6 +449,7 @@ public class Player : Movable {
                     DestroyImmediate(hooks[0], true);
                 }
             }
+            animator.SetBool("playerAttack", true);
             hooks.Add(Instantiate(hook, transform.position, Quaternion.identity));
             hooks[hooks.Count-1].SetActive(true);
             if (hooks[hooks.Count-1].GetComponent<Hook>().Attack(this, vDirection, iHookLength))
@@ -472,6 +485,8 @@ public class Player : Movable {
         hooks.Clear();
 
         bHookUse = false;
+
+        animator.SetBool("playerAttack", false);
     }
 
     public void EnemyHit(GameObject enemy)
