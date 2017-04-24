@@ -100,8 +100,6 @@ public class Player : Movable {
                 Vector3[] linePositions = new Vector3[2];
                 linePositions[0] = this.transform.position;         //Start position
                 linePositions[1] = hooks[hooks.Count - 1].GetComponent<Hook>().transform.position;     //End Position
-                linePositions[0].z = -1;
-                linePositions[1].z = -1;
                 chainRender.SetPositions(linePositions);
                 chainRender.sortingLayerName = "Items";
             }
