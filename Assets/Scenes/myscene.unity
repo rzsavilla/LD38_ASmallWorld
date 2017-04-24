@@ -283,7 +283,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Current Card: \nEffect Number: "
+  m_Text: "Current Card: \nCard: \nEffect: "
 --- !u!222 &419499296
 CanvasRenderer:
   m_ObjectHideFlags: 0

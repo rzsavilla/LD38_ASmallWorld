@@ -81,14 +81,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 1.28}
-    newSize: {x: 0.64, y: 1.28}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.45, y: 0.65}
   m_EdgeRadius: 0
 --- !u!95 &95951373696547688
 Animator:
@@ -124,7 +124,7 @@ MonoBehaviour:
     m_Bits: 256
   iState: 0
   restartLevelDelay: 1
-  pushBack: 10
+  pushBack: 35
   tHP: {fileID: 0}
   tScore: {fileID: 0}
   tCard: {fileID: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
   iSkipAmount: 20
   iAttackCooldown: 0
   iMaxAttackCooldown: 20
-  iHookLength: 2000
+  iHookLength: 1000
   fHookMove: 2
   hook: {fileID: 1865439062611108, guid: 79b69e7780e46c44ab59f83488412f6b, type: 2}
   hooks: []
@@ -261,6 +261,6 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 1.28}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

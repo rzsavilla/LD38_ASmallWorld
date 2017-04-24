@@ -68,4 +68,54 @@ public class Card {
         bSet = true;
         return true;
     }
+
+    public string GetName()
+    {
+        if (cardImmediate.iEffect == 0)
+        {
+            //Does nothing
+            return "Nothing!";
+        }
+        else if (cardImmediate.iEffect == 1)
+        {
+            //Gain score
+            return "Gain Score!";
+        }
+        else if (cardImmediate.iEffect == 2)
+        {
+            //Gain HP
+            return "Heal HP!";
+        }
+        else
+        {
+            return "None";
+        }
+    }
+
+    public string GetEffect()
+    {
+        if (cardImmediate.iEffect == 0)
+        {
+            //Does nothing
+            return  "This card does\n" + 
+                    "nothing! Discard\n" +
+                    "it!";
+        }
+        else if (cardImmediate.iEffect == 1)
+        {
+            //Gain score
+            return  "This card gives\n" +
+                    "you 50 points!";
+        }
+        else if (cardImmediate.iEffect == 2)
+        {
+            //Gain HP
+            return  "This card heals\n" +
+                    "you for 10 HP!";
+        }
+        else
+        {
+            return "NA";
+        }
+    }
 }

@@ -57,13 +57,13 @@ public class Player : Movable {
 
         tHP.text = "HP: " + iHP;
         tScore.text = "Score: " + iScore;
-        tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+        tCard.text = "Current Card: " + iCurrentCard + "\n" +
+            "Card: " + cards[iCurrentCard - 1].GetName() + "\n\n" +
+            "Effect: \n" + cards[iCurrentCard - 1].GetEffect();
 
         base.Start();
 
         chainRender = GetComponent<LineRenderer>();
-        //chainRender.startColor = Color.black;
-        //chainRender.endColor = Color.black;
     }
 
     private void OnDisable()
@@ -234,7 +234,9 @@ public class Player : Movable {
             {
                 if (cards[i].GenerateCard())
                 {
-                    tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+                    tCard.text = "Current Card: " + iCurrentCard + "\n" +
+            "Card: " + cards[iCurrentCard - 1].GetName() + "\n\n" +
+            "Effect: \n" + cards[iCurrentCard - 1].GetEffect();
                     other.gameObject.SetActive(false);
                     break;
                 }
@@ -425,7 +427,9 @@ public class Player : Movable {
             iCurrentCard = 3;
         }
 
-        tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+        tCard.text = "Current Card: " + iCurrentCard + "\n" +
+            "Card: " + cards[iCurrentCard - 1].GetName() + "\n\n" +
+            "Effect: \n" + cards[iCurrentCard - 1].GetEffect();
     }
 
     public bool UseCard()
@@ -433,7 +437,9 @@ public class Player : Movable {
         bool check = cards[iCurrentCard - 1].DestroyCard();
         tHP.text = "HP: " + iHP;
         tScore.text = "Score: " + iScore;
-        tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
+        tCard.text = "Current Card: " + iCurrentCard + "\n" +
+            "Card: " + cards[iCurrentCard - 1].GetName() + "\n\n" +
+            "Effect: \n" + cards[iCurrentCard - 1].GetEffect();
         return check;
     }
 
