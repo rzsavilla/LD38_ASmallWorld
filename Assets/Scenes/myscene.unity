@@ -147,66 +147,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114329227860317570, guid: 313c3f7139ab7374f8da5cb78145e54b,
-        type: 2}
-      propertyPath: iPlayerHP
-      value: 100
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114939052714971216, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &245344665 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1039543885840986, guid: 313c3f7139ab7374f8da5cb78145e54b,
-    type: 2}
-  m_PrefabInternal: {fileID: 171831605}
---- !u!114 &245344666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 245344665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841c0b45baccb364fbd56b242a98cebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iLevelWidth: 50
-  iLevelHeight: 50
-  iPickupCount: 20
-  iEnemyCount: 1
-  floorTiles:
-  - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
-  - {fileID: 1237618421396826, guid: d61a40ea304e0e44db8678d94590d569, type: 2}
-  - {fileID: 1401335454299198, guid: dcf373a5e1eca9349b47fcbc162fd9ef, type: 2}
-  - {fileID: 1971721116254130, guid: 2014a31d08b66fb44bdf03b143adec39, type: 2}
-  wallTiles:
-  - {fileID: 1528034389043886, guid: 766f544aa13d5a845acc508dbe2a098f, type: 2}
-  - {fileID: 1033739349078076, guid: 006e330e1fbab3646ab4d0833c28d9e4, type: 2}
-  - {fileID: 1931428688014894, guid: 576d2f508a86a6b44b7b21d5bd7ed461, type: 2}
-  - {fileID: 1167461972965086, guid: 093b8fcfe21034a4fa206821acbf407f, type: 2}
-  - {fileID: 1974884234764674, guid: d88303ba434e86840bd3b94e66358c5a, type: 2}
-  - {fileID: 1637328230984834, guid: fb8096184b1673544b62aa2256ab56c6, type: 2}
-  - {fileID: 1724908711394780, guid: 88c645eb6011e7b40b8e442ce6ddd109, type: 2}
-  - {fileID: 1965759768881428, guid: c2829d095a8d9004f891f81191b9078c, type: 2}
-  - {fileID: 1085547983497798, guid: f482e0e8f06825c4487fdec157633608, type: 2}
-  pickups:
-  - {fileID: 1482657788659008, guid: 676bec81429d6b345b173209d8c4cff8, type: 2}
-  - {fileID: 1294448565107300, guid: 88b4b8c24db840148ae8569b971329e1, type: 2}
-  - {fileID: 1357311501237714, guid: c8abbd3497750d842b46132dca21482c, type: 2}
-  enemies:
-  - {fileID: 1492800951930014, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
-  objectsHandle: []
-  enemyHandle: []
-  levelGrid: 
-  fRockPercent: 50
-  iCAIterations: 5
-  iRockDefinition: 4
-  iMooreNeighbouhood: 1
-  iVisited: 
-  iLargestCave: 0
-  iNumCaves: 0
 --- !u!1 &419499293
 GameObject:
   m_ObjectHideFlags: 0
