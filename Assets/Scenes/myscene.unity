@@ -178,8 +178,19 @@ MonoBehaviour:
   iEnemyCount: 1
   floorTiles:
   - {fileID: 1273882544873642, guid: 8dbbc3a48759cf74393159aeb0789a7a, type: 2}
+  - {fileID: 1237618421396826, guid: d61a40ea304e0e44db8678d94590d569, type: 2}
+  - {fileID: 1401335454299198, guid: dcf373a5e1eca9349b47fcbc162fd9ef, type: 2}
+  - {fileID: 1971721116254130, guid: 2014a31d08b66fb44bdf03b143adec39, type: 2}
   wallTiles:
-  - {fileID: 1701792564690558, guid: 5b947d33931b7b34b87693ed0308e96e, type: 2}
+  - {fileID: 1528034389043886, guid: 766f544aa13d5a845acc508dbe2a098f, type: 2}
+  - {fileID: 1033739349078076, guid: 006e330e1fbab3646ab4d0833c28d9e4, type: 2}
+  - {fileID: 1931428688014894, guid: 576d2f508a86a6b44b7b21d5bd7ed461, type: 2}
+  - {fileID: 1167461972965086, guid: 093b8fcfe21034a4fa206821acbf407f, type: 2}
+  - {fileID: 1974884234764674, guid: d88303ba434e86840bd3b94e66358c5a, type: 2}
+  - {fileID: 1637328230984834, guid: fb8096184b1673544b62aa2256ab56c6, type: 2}
+  - {fileID: 1724908711394780, guid: 88c645eb6011e7b40b8e442ce6ddd109, type: 2}
+  - {fileID: 1965759768881428, guid: c2829d095a8d9004f891f81191b9078c, type: 2}
+  - {fileID: 1085547983497798, guid: f482e0e8f06825c4487fdec157633608, type: 2}
   pickups:
   - {fileID: 1482657788659008, guid: 676bec81429d6b345b173209d8c4cff8, type: 2}
   - {fileID: 1294448565107300, guid: 88b4b8c24db840148ae8569b971329e1, type: 2}
