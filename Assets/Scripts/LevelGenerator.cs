@@ -5,18 +5,6 @@ using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [System.Serializable]
-    public class Count
-    {
-        public int min;
-        public int max;
-        public Count(int mn,int mx)
-        {
-            min = mn;
-            max = mx;
-        }
-    }
-
     public int iLevelWidth = 10;
     public int iLevelHeight = 10;
 
@@ -27,7 +15,6 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] wallTiles;
     public GameObject[] pickups;
     public GameObject[] enemies;
-    private Transform levelHolder;  //!< Level Position
     private List<Vector3> gridPositions = new List<Vector3>();   //!< List of active positions on the level
 
     [HideInInspector]
