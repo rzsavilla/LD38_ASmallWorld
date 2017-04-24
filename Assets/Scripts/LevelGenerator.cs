@@ -8,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public int iLevelWidth = 10;
     public int iLevelHeight = 10;
 
+    public int iCardCount =  1;
     public int iPickupCount = 1;
     public int iEnemyCount = 1;
 
@@ -15,6 +16,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] wallTiles;
     public GameObject[] pickups;
     public GameObject[] enemies;
+    public GameObject[] cards;
     private List<Vector3> gridPositions = new List<Vector3>();   //!< List of active positions on the level
 
     [HideInInspector]
@@ -505,6 +507,12 @@ public class LevelGenerator : MonoBehaviour
         if (hasTraversable())
         {
             playerStartPos = getRandomTraversable();
+        }
+
+        //Place Cards
+        for (int i = 0; i < iCardCount; i++)
+        {
+            placeObject(cards, getRandomTraversable());
         }
 
         //Place num Enemies

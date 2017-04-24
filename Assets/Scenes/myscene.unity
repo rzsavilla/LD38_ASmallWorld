@@ -117,6 +117,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
+      propertyPath: cards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
+        type: 2}
       propertyPath: enemies.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -185,12 +190,12 @@ Prefab:
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iLevelWidth
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iLevelHeight
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
@@ -200,8 +205,14 @@ Prefab:
     - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
         type: 2}
       propertyPath: iEnemyCount
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114762644175306092, guid: 313c3f7139ab7374f8da5cb78145e54b,
+        type: 2}
+      propertyPath: cards.Array.data[0]
+      value: 
+      objectReference: {fileID: 1604207039266912, guid: 0bc63d5b2ae4fb04e8a2066e346e07d1,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 313c3f7139ab7374f8da5cb78145e54b, type: 2}
   m_IsPrefabParent: 0
