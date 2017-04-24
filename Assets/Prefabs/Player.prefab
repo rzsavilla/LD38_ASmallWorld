@@ -128,12 +128,13 @@ MonoBehaviour:
   tHP: {fileID: 0}
   tScore: {fileID: 0}
   tCard: {fileID: 0}
+  iHookDamage: 2
   iCurrentCard: 0
   iSkipMove: 0
   iSkipAmount: 20
   iAttackCooldown: 0
   iMaxAttackCooldown: 20
-  iHookLength: 200
+  iHookLength: 2000
   fHookMove: 2
   hook: {fileID: 1865439062611108, guid: 79b69e7780e46c44ab59f83488412f6b, type: 2}
   hooks: []
@@ -145,8 +146,8 @@ LineRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1785650571326996}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

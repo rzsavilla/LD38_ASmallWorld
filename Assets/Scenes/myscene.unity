@@ -197,6 +197,8 @@ MonoBehaviour:
   - {fileID: 1357311501237714, guid: c8abbd3497750d842b46132dca21482c, type: 2}
   enemies:
   - {fileID: 1492800951930014, guid: 0f2d3290c929bcd4b93558a7a02cdb5f, type: 2}
+  objectsHandle: []
+  enemyHandle: []
   levelGrid: 
   fRockPercent: 50
   iCAIterations: 5
@@ -395,21 +397,6 @@ Prefab:
       propertyPath: tCard
       value: 
       objectReference: {fileID: 419499295}
-    - target: {fileID: 114583021419185106, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: iHookLength
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 120220662917722116, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: m_ReceiveShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 120220662917722116, guid: 9b7ca7c40a6dff94396af254abf6952e,
-        type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9b7ca7c40a6dff94396af254abf6952e, type: 2}
   m_IsPrefabParent: 0

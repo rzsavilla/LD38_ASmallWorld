@@ -121,11 +121,15 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  bHurt: 1
+  iHP: 10
   iDamage: 5
-  iSkipHit: 20
+  iSkipHit: 30
   iSkipAmount: 5
   iSkipMove: 5
+  pushBack: 50
   fFollowTollerance: 0.25
+  bDelete: 0
 --- !u!212 &212280991434801176
 SpriteRenderer:
   m_ObjectHideFlags: 1
