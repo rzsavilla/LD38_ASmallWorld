@@ -122,6 +122,9 @@ public class GameManager : MonoBehaviour
         //levelText.text = "After " + level + " days, you starved.";
         //levelImage.SetActive(true);
         //enabled = false;
+
+        GameStats.Score = iScore;
+        SceneManager.LoadScene("GameOver");
     }
 
     // Update is called once per frame

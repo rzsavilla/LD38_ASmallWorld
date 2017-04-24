@@ -305,7 +305,6 @@ public class Player : Movable {
             //SoundManager.instance.PlaySingle(gameoverSound);
             //SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
-            //DestroyObject(this);
         }
     }
 
