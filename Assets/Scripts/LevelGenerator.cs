@@ -227,6 +227,7 @@ public class LevelGenerator : MonoBehaviour
     void floodFill()
     {
         List<List<int>> iCaves = new List<List<int>>();   //Unconnected Caves
+        iCaves.Clear();
         //Loop through level grid
         for (int x = 0; x < iLevelWidth; x++)
         {
@@ -244,7 +245,6 @@ public class LevelGenerator : MonoBehaviour
                     {
                         int iCurrent = cave[0];
                         levelGrid[iCurrent] = 2;        //Visited
-                        Debug.Log(iCurrent);
                         cave.RemoveAt(0);
 
                         int iCurrIndex = -1;
@@ -306,32 +306,51 @@ public class LevelGenerator : MonoBehaviour
 
         iNumCaves = iCaves.Count;
 
-        //iLargestCave = -999;
-        //int iLargestIndex = -1;
-        ////--Get Largest Cave--//
-        //for (int i = 0; i < iCaves.Count; i++)
-        //{
-        //    for (int j = 0; j <iCaves[j].Count; j++)
-        //    {
-        //        if (iCaves[i][j] > iLargestCave)
-        //        {
-        //            iLargestIndex = i;
-        //            iLargestCave = iCaves[i][j];
-        //        }
-        //    }
-        //}
-
-        ////Fill in smaller caves
-        //for (int i = 0; i < iCaves.Count; i++)
-        //{
-        //    if (i != iLargestIndex)
-        //    {
-        //        for (int j = 0; j < iCaves[i].Count; j++)
-        //        {
-        //            levelGrid[iCaves[i][j]] = 1;      //Turn into wall
-        //        }
-        //    }
-        //}
+        iLargestCave = -999;
+        int iLargestIndex = -1;
+        //--Get Largest Cave--//
+        for (int i = 0; i < iCaves.Count; i++)
+        {
+            for (int j = 0; j < iCaves[i].Count; j++)
+            {
+                if (iCaves[i][j] >= iLargestCave)
+                {
+                    iLargestIndex = i;
+                    iLargestCave = iCaves[i][j];
+                }
+            }
+        }
+        
+        if (iLargestIndex > -1)
+        {
+            //Check minumum traversable
+            int iMinTraversable = (int)(levelGrid.Count * 0.1);
+            Debug.Log(iMinTraversable);
+            if (iCaves[iLargestIndex].Count > iMinTraversable)
+            {
+                //Fill in smaller caves
+                for (int i = 0; i < iCaves.Count; i++)
+                {
+                    if (i != iLargestIndex)
+                    {
+                        for (int j = 0; j < iCaves[i].Count; j++)
+                        {
+                            levelGrid[iCaves[i][j]] = 1;      //Turn into wall
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Rebuild
+                SetupLevel();
+            }
+        }
+        else
+        {
+            //Rebuild
+                SetupLevel();
+        }
     }
 
     bool getAdjacent(int x, int y, string direction, ref int index)
