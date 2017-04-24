@@ -398,7 +398,7 @@ public class LevelGenerator : MonoBehaviour
         //Place Random game object from within array -- provides variation --
         if (objectArray.Length > 1)
         {
-            int iRandIndex = Random.Range(0, objectArray.Length - 1);
+            int iRandIndex = Random.Range(0, objectArray.Length);
             GameObject objectChoice = objectArray[iRandIndex];
             if (objectChoice != null)
             {

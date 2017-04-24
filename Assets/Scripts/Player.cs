@@ -62,8 +62,8 @@ public class Player : Movable {
         base.Start();
 
         chainRender = GetComponent<LineRenderer>();
-        chainRender.startColor = Color.black;
-        chainRender.endColor = Color.black;
+        //chainRender.startColor = Color.black;
+        //chainRender.endColor = Color.black;
     }
 
     private void OnDisable()
@@ -106,6 +106,12 @@ public class Player : Movable {
                 chainRender.SetPositions(linePositions);
                 chainRender.sortingLayerName = "Items";
             }
+            animator.SetBool("playerAttack", true);
+            animator.SetBool("playerUp", false);
+            animator.SetBool("playerDown", false);
+            animator.SetBool("playerLeft", false);
+            animator.SetBool("playerRight", false);
+            animator.SetBool("playerIdle", false);
         }
         if (hooks.Count > 0)
         {
@@ -123,6 +129,8 @@ public class Player : Movable {
     //Check the animations for movement, setting the correct one based on inputs
     void AnimCheck(int xDir, int yDir)
     {
+        //Chain is behind player
+        if (chainRender != null) chainRender.sortingLayerName = "Items";
         if (xDir == 1)
         {
             animator.SetBool("playerRight", true);
@@ -139,7 +147,6 @@ public class Player : Movable {
                 animator.SetBool("playerLeft", false);
             }
         }
-
         if (yDir == 1)
         {
             animator.SetBool("playerUp", true);
@@ -150,11 +157,17 @@ public class Player : Movable {
             if (yDir == -1)
             {
                 animator.SetBool("playerDown", true);
+                animator.SetBool("playerLeft", false);
+                animator.SetBool("playerRight", false);
+                //Chain in front of player
+                if (chainRender != null) chainRender.sortingLayerName = "Units";
+                if (chainRender != null) chainRender.sortingOrder = 999;
             }
             else
             {
                 animator.SetBool("playerDown", false);
             }
+                
         }
     }
 

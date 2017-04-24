@@ -125,10 +125,16 @@ public class Enemy : Movable {
             hitPlayer.LoseHP(iDamage);
 
             //SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
+            animator.SetBool("playerAttack", true);
+            animator.SetBool("playerUp", false);
+            animator.SetBool("playerDown", false);
+            animator.SetBool("playerLeft", false);
+            animator.SetBool("playerRight", false);
 
         }
         else if (hitPlayer.iState == 1)
         {
+            animator.SetBool("playerAttack", false);
             PushBack(-vDirection);
         }
     }
