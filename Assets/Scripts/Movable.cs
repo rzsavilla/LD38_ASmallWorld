@@ -71,6 +71,14 @@ public abstract class Movable : MonoBehaviour {
             {
                 return false;
             }
+            else if (hit.transform.gameObject.tag == "Enemy")
+            {
+                if (hit.transform.gameObject.GetComponent<Enemy>().bHurt)
+                {
+                    GetComponent<Player>().EnemyHit(hit.transform.gameObject);
+                    hit.transform.gameObject.GetComponent<Enemy>().PushBack(new Vector3(xDir, yDir));
+                }
+            }
         }
 
         rb2D.MovePosition(end);
@@ -89,6 +97,14 @@ public abstract class Movable : MonoBehaviour {
                 if (hit.transform.gameObject.tag == "Wall")
                 {
                     return false;
+                }
+                else if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    if (hit.transform.gameObject.GetComponent<Enemy>().bHurt)
+                    {
+                        GetComponent<Player>().EnemyHit(hit.transform.gameObject);
+                        hit.transform.gameObject.GetComponent<Enemy>().PushBack(new Vector3(xDir, yDir));
+                    }
                 }
             }
 
@@ -147,25 +163,6 @@ public abstract class Movable : MonoBehaviour {
 
         if (!canMove && hitComponent != null)
             OnCantMove(hitComponent);
-    }
-
-    protected virtual void AttemptMove<T, S>(int xDir, int yDir)
-        where T : Component
-        where S : Component
-    {
-        bool canMove = Move(xDir, yDir);
-
-        if (canMove)
-            return;
-
-        T hitComponent = hit.transform.GetComponent<T>();
-        S hitComponent2 = hit.transform.GetComponent<S>();
-
-        if (!canMove && hitComponent != null)
-            OnCantMove(hitComponent);
-        else if (!canMove && hitComponent2 != null)
-            OnCantMove(hitComponent2);
-
     }
 
     protected virtual void AttemptMove<T>(float xDir, float yDir, float speed)

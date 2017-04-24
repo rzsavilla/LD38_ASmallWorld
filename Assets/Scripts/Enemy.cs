@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Movable {
 
+    public bool bHurt = true;
     public int iHP = 10;
     public int iDamage = 5;
     public int iSkipHit = 20;
@@ -42,6 +43,10 @@ public class Enemy : Movable {
     public void DecSkipMove()
     {
         iSkipMove--;
+        if (iSkipMove <= 0)
+        {
+            bHurt = true;
+        }
     }
 
     public void MoveEnemy()
@@ -125,27 +130,51 @@ public class Enemy : Movable {
         }
     }
 
-    //Function for being pushed back from the enemy code
+    //Function for being pushed back
     public void PushBack(Vector2 direction)
     {
-        Vector2 position = transform.position;
-        Vector2 newDirection = new Vector2(direction.x, direction.y) * Time.deltaTime * pushBack;
-
-        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
-        boxCollider.enabled = false;
-        RaycastHit2D hit = Physics2D.Linecast(position, position + newDirection, blockingLayer);
-        boxCollider.enabled = true;
-
-        if (hit.transform == null)
+        if (bHurt)
         {
+            Vector2 position = transform.position;
+            Vector2 newDirection = new Vector2(direction.x, direction.y) * Time.deltaTime * pushBack;
+
+            BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+            boxCollider.enabled = false;
+            RaycastHit2D hit = Physics2D.Linecast(position, position + newDirection, blockingLayer);
+            boxCollider.enabled = true;
+
+            if (hit.transform == null)
+            {
+                transform.position += (new Vector3(newDirection.x, newDirection.y));
+
+                bHurt = false;
+                iSkipMove = iSkipHit;
+            }
+
+            if (iHP <= 0)
+            {
+                bDelete = true;
+            }
+        }
+    }
+
+    //Function for being pushed back from the travelling player
+    public void PushBackForce(Vector2 direction)
+    {
+        if (bHurt)
+        {
+            Vector2 position = transform.position;
+            Vector2 newDirection = new Vector2(direction.x, direction.y) * Time.deltaTime * pushBack;
+
             transform.position += (new Vector3(newDirection.x, newDirection.y));
 
+            bHurt = false;
             iSkipMove = iSkipHit;
-        }
 
-        if (iHP <= 0)
-        {
-            bDelete = true;
+            if (iHP <= 0)
+            {
+                bDelete = true;
+            }
         }
     }
 

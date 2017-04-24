@@ -464,6 +464,10 @@ public class Player : Movable {
     public void EnemyHit(GameObject enemy)
     {
         enemy.GetComponent<Enemy>().Hit(iHookDamage);
+        if (hooks[hooks.Count-1].GetComponent<Hook>().iTarget == 2)
+        {
+            enemy.GetComponent<Enemy>().PushBack(vDirection);
+        }
     }
 
     public void TravelTo(Vector3 destination)
