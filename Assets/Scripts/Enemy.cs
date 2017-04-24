@@ -104,6 +104,9 @@ public class Enemy : Movable {
                 animator.SetBool("playerDown", false);
             }
         }
+        
+        //Render object with lowest y axis position
+        GetComponent<SpriteRenderer>().sortingOrder = 1000 - (int)(GetComponent<Transform>().position.y * 100);
     }
 
     protected override void OnCantMove<T>(T component)
