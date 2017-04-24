@@ -12,6 +12,7 @@ public class Player : Movable {
     public Text tHP;
     public Text tScore;
     public Text tCard;
+    public int iHookDamage = 2;
     public int iCurrentCard;
     public int iSkipMove = 0;
     public int iSkipAmount = 20;
@@ -47,6 +48,7 @@ public class Player : Movable {
         iHP = GameManager.instance.iPlayerHP;
         iMaxHP = GameManager.instance.iPlayerMaxHP;
         iScore = GameManager.instance.iScore;
+        iHookDamage = GameManager.instance.iHookDamage;
 
         for (int i = 0; i < GameManager.instance.iNumCards; i++)
         {
@@ -71,6 +73,7 @@ public class Player : Movable {
         GameManager.instance.iScore = iScore;
         GameManager.instance.SetCards(cards);
         GameManager.instance.iCurrentCard = iCurrentCard;
+        GameManager.instance.iHookDamage = iHookDamage;
     }
 
     // Update is called once per frame
@@ -456,6 +459,11 @@ public class Player : Movable {
         hooks.Clear();
 
         bHookUse = false;
+    }
+
+    public void EnemyHit(GameObject enemy)
+    {
+        enemy.GetComponent<Enemy>().Hit(iHookDamage);
     }
 
     public void TravelTo(Vector3 destination)

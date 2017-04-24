@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int iScore = 0;
     public int iNumEffects = 3;
     public int iNumCards = 3;
+    public int iHookDamage = 2;
     private List<Card> cards;
     public int iCurrentCard;
 
@@ -125,16 +126,39 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update () {
+        List<int> delete = new List<int>();
         //Update all enemies on screen
 		for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].DecSkipMove();
-            if (enemies[i].iSkipMove <= 0)
+            if (enemies[i].bDelete)
             {
-                enemies[i].MoveEnemy();
+                //Set an enemy for deletion
+                delete.Add(i);
+            }
+            else
+            {
+                enemies[i].DecSkipMove();
+                if (enemies[i].iSkipMove <= 0)
+                {
+                    enemies[i].MoveEnemy();
+                }
             }
         }
-        
+
+        //Delete all enemies that were set for deletion
+        for (int i = 0; i < delete.Count; i++)
+        {
+            //DestroyImmediate(enemies[delete[i]], true);
+            //enemies.RemoveAt(delete[i]);
+            //enemies[delete[i]].GetComponent<SpriteRenderer>().enabled = false;
+            //levelGenerator.enemies[delete[i]].SetActive(false);
+            //DestroyImmediate(levelGenerator.enemies[delete[i]], true);
+            //levelGenerator.enemies.RemoveAt(delete[i]);
+            DestroyImmediate(levelGenerator.enemyHandle[delete[i]], true);
+        }
+        delete.Clear();
+
+
         ////////////////////
         //Input manager. Keys are checked here, and the desired effect, or the desired
         //effect in another class is called
@@ -142,10 +166,10 @@ public class GameManager : MonoBehaviour
 
         //Movement (Only with WASD) (Will always be called, for animations sake)
         player.Movement(
-                Input.GetKey(KeyCode.W),
-                Input.GetKey(KeyCode.A),
-                Input.GetKey(KeyCode.S),
-                Input.GetKey(KeyCode.D));
+            Input.GetKey(KeyCode.W),
+            Input.GetKey(KeyCode.A),
+            Input.GetKey(KeyCode.S),
+            Input.GetKey(KeyCode.D));
 
         //Switching Cards (with Q and E)
         if (Input.GetKeyDown(KeyCode.Q))

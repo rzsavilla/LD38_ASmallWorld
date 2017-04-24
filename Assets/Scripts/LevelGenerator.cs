@@ -30,7 +30,10 @@ public class LevelGenerator : MonoBehaviour
     private Transform levelHolder;  //!< Level Position
     private List<Vector3> gridPositions = new List<Vector3>();   //!< List of active positions on the level
 
-    private List<GameObject> objectsHandle = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject> objectsHandle = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject> enemyHandle = new List<GameObject>();
 
     private List<Vector3> traversablePositions = new List<Vector3>();    //!< List of traversable positions
 
@@ -410,7 +413,28 @@ public class LevelGenerator : MonoBehaviour
                 objectsHandle.Add(Instantiate(objectChoice, position, Quaternion.identity));
             }
         }
-        else { }
+    }
+
+    void placeEnemy(GameObject[] objectArray, Vector3 position)
+    {
+        //Place Random game object from within array -- provides variation --
+        if (objectArray.Length > 1)
+        {
+            int iRandIndex = Random.Range(0, objectArray.Length - 1);
+            GameObject objectChoice = objectArray[iRandIndex];
+            if (objectChoice != null)
+            {
+                enemyHandle.Add(Instantiate(objectChoice, position, Quaternion.identity));
+            }
+        }
+        else if (objectArray.Length > 0)
+        {
+            GameObject objectChoice = objectArray[0];
+            if (objectChoice != null)
+            {
+                enemyHandle.Add(Instantiate(objectChoice, position, Quaternion.identity));
+            }
+        }
     }
 
     void buildLevel()
@@ -421,6 +445,13 @@ public class LevelGenerator : MonoBehaviour
             Destroy(objectsHandle[i]);
         }
         objectsHandle.Clear();
+
+        //Destroy created enemies in the scene
+        for (int i = 0; i < enemyHandle.Count; i++)
+        {
+            Destroy(enemyHandle[i]);
+        }
+        enemyHandle.Clear();
 
         traversablePositions.Clear();
         for (int i = 0; i < (iLevelWidth * iLevelHeight); i++)
@@ -479,7 +510,7 @@ public class LevelGenerator : MonoBehaviour
         //Place num Enemies
         for (int i = 0; i < iEnemyCount; i++)
         {
-            placeObject(enemies, getRandomTraversable());
+            placeEnemy(enemies, getRandomTraversable());
         }
 
         //Place num Pickups

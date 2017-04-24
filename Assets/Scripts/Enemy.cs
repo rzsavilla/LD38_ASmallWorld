@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Movable {
+public class Enemy : Movable
+{
 
+    public int iHP = 10;
     public int iDamage = 5;
     public int iSkipHit = 20;
     public int iSkipAmount = 5;
     public int iSkipMove = 5;
     public int pushBack = 10;
     public float fFollowTollerance = 0.25f;
+    public bool bDelete = false;
 
     private Animator animator;
     private Transform target;
     private Vector2 vDirection;
 
     // Use this for initialization
-    protected override void Start ()
+    protected override void Start()
     {
         GameManager.instance.AddEnemyToList(this);
         animator = GetComponent<Animator>();
@@ -100,7 +103,7 @@ public class Enemy : Movable {
     }
 
     protected override void OnCantMove<T>(T component)
-    {        
+    {
         Player hitPlayer = component as Player;
 
         if (hitPlayer.iState == 0)
@@ -140,5 +143,15 @@ public class Enemy : Movable {
 
             iSkipMove = iSkipHit;
         }
+
+        if (iHP <= 0)
+        {
+            bDelete = true;
+        }
+    }
+
+    public void Hit(int damage)
+    {
+        iHP -= damage;
     }
 }
