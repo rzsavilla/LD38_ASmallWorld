@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bUse: 1
-  bTarget: 1
+  iTarget: 1
   vDirection: {x: 0, y: 0}
   iSpeed: 10
   iPushBack: 20

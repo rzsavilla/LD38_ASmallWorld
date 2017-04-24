@@ -21,6 +21,7 @@ public class Player : Movable {
     public float fHookMove = 2f;
     public GameObject hook;
     public List<GameObject> hooks;
+    private LineRenderer chainRender;
 
     private Animator animator;
     private int iHP;
@@ -57,7 +58,11 @@ public class Player : Movable {
         tCard.text = "Current Card: " + iCurrentCard + "\n" + "EffectNumber: " + cards[iCurrentCard - 1].cardImmediate.iEffect;
 
         base.Start();
-	}
+
+        chainRender = GetComponent<LineRenderer>();
+        chainRender.startColor = Color.black;
+        chainRender.endColor = Color.black;
+    }
 
     private void OnDisable()
     {
@@ -77,9 +82,28 @@ public class Player : Movable {
         }
         if (!bHookUse)
         {
+            Vector3[] linePositions = new Vector3[2];
+            linePositions[0] = this.transform.position;         //Start position
+            linePositions[1] = this.transform.position;         //End
+            linePositions[0].z = 1;
+            linePositions[1].z = 1;
+            chainRender.SetPositions(linePositions);
             if (iAttackCooldown > 0)
             {
                 iAttackCooldown--;
+            }
+        }
+        else
+        {
+            if (chainRender != null)
+            {
+                Vector3[] linePositions = new Vector3[2];
+                linePositions[0] = this.transform.position;         //Start position
+                linePositions[1] = hooks[hooks.Count - 1].GetComponent<Hook>().transform.position;     //End Position
+                linePositions[0].z = -1;
+                linePositions[1].z = -1;
+                chainRender.SetPositions(linePositions);
+                chainRender.sortingLayerName = "Items";
             }
         }
         if (hooks.Count > 0)
