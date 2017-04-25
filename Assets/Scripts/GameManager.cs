@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
 
         //Reload Level
         //Will be removed when done
-        if (Input.GetKeyDown(KeyCode.Space) || PlayerPrefs.GetInt("iNextLevel") == 1)
+        if (PlayerPrefs.GetInt("iNextLevel") == 1)
         {
             InitGame();
         }
