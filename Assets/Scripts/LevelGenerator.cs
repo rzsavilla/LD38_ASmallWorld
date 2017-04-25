@@ -493,8 +493,9 @@ public class LevelGenerator : MonoBehaviour
         if (hasTraversable())
         {
             int i = Random.Range(0, traversablePositions.Count - 1);
+            Vector3 pos = traversablePositions[i];
             traversablePositions.RemoveRange(i, 1);  //Remove position - so no other object can be placed there 
-            return traversablePositions[i];
+            return pos;
         }
         else return new Vector3(-1f, 0f, 0f);
     }
