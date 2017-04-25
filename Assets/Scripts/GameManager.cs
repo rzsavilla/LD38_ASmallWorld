@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         DontDestroyOnLoad(gameObject);
         enemies = new List<Enemy>();
 
@@ -90,7 +89,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
-    void InitGame()
+    public void InitGame()
     {
         //doingSetup = true;
 
@@ -99,6 +98,7 @@ public class GameManager : MonoBehaviour
         //levelText.text = "Day " + level;
         //levelImage.SetActive(true);
         //Invoke("HideLevelImage", levelStartDelay);
+        PlayerPrefs.SetInt("iNextLevel", 0);
         enemies.Clear();
         levelGenerator.SetupLevel();
         placeGameObjects();
@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
 
         //Reload Level
         //Will be removed when done
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || PlayerPrefs.GetInt("iNextLevel") == 1)
         {
             InitGame();
         }

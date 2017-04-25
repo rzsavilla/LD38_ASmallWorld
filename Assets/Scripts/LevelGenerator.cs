@@ -15,6 +15,8 @@ public class LevelGenerator : MonoBehaviour
     public int iMaxPickup = 50;
     public int iMaxEnemy = 50;
 
+    public GameObject exit; //!< Object to move to next level
+
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] pickups;
@@ -507,10 +509,10 @@ public class LevelGenerator : MonoBehaviour
     public void placeObjects()
     {
         //Set Player start position
-        if (hasTraversable())
-        {
-            playerStartPos = getRandomTraversable();
-        }
+        playerStartPos = getRandomTraversable();
+
+        //Place exit
+        objectsHandle.Add(Instantiate(exit, getRandomTraversable(), Quaternion.identity));
 
         //Place Cards
         for (int i = 0; i < iCardCount; i++)

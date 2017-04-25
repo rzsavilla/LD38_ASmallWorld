@@ -55,6 +55,8 @@ public class Player : Movable {
             cards[i].SetPlayer(this);
         }
 
+        PlayerPrefs.SetInt("iTouchedExit", 0);
+
         tHP.text = "HP: " + iHP;
         tScore.text = "Score: " + iScore;
         tCard.text = "Current Card: " + iCurrentCard + "\n" +
@@ -225,8 +227,9 @@ public class Player : Movable {
         }
         else if (other.tag == "Exit")
         {
-            Invoke("Restart", restartLevelDelay);
-            enabled = false;
+            PlayerPrefs.SetInt("iNextLevel", 1);
+            GameManager.instance.InitGame();
+            //enabled = false;
         }
         else if (other.tag == "Card")
         {
